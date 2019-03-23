@@ -1,1 +1,71 @@
+/* Global styles -------------------------------- */
+body {
+    font-family: 'Titillium Web', sans-serif;
+}
+a {
+    color: #000;
+}
+.nav {
+    z-index: 10;
+}
+.background-gradient {
+    background: linear-gradient( 
+        to top,
+        rgba(255, 255, 255, 0.65), 
+        rgba(255, 255, 255, 0.95) 
+    );
+}
 
+/* Parallax styles -------------------------------- */
+.parallax-container {
+    height: 93vh;
+}
+.parallax-container.landing {
+    height: 42vh;
+}
+
+/* storyTree styles -------------------------------- */
+.col {
+    height: 120px;
+}
+.node {
+    display: flex;
+    align-items: center;
+    justify-content: center
+}
+.node-row-0 {
+    margin: 5px;
+    border: 2px solid #558b2f;
+    height: 95%;
+    width: 20%
+}
+.node-row-1 {
+    margin: 5px;
+    border: 2px solid #558b2f;
+    height: 75%;
+    width: 30%
+}
+.node-row-2 {
+    margin: 5px;
+    border: 2px solid #558b2f;
+    height: 60%;
+    width: 40%
+}
+.node-row-3 {
+    margin: 5px;
+    border: 2px solid #558b2f;
+    height: 50%;
+    width: 50%
+}
+.node-row-4 {
+    margin: 5px;
+    border: 2px solid #558b2f;
+    height: 50%
+}
+
+/* Misc. styles -------------------------------- */
+#credits-button {
+    position: relative;
+    z-index: 100;
+    margin-top: 5px
+}

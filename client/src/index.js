@@ -1,4 +1,6 @@
 // -------------------------------------------------
+import 'materialize-css/dist/css/materialize.min.css'
+import WebFont from 'webfontloader'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
@@ -15,6 +17,12 @@ const store = createStore(
     {}, 
     composeEnhancers(applyMiddleware(reduxThunk))
 )
+
+WebFont.load({
+    google: {
+        families: ['Titillium Web:300,400,700', 'sans-serif']
+    }
+})
 
 ReactDOM.render(
     <Provider store={store}>

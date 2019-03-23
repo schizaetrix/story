@@ -16,8 +16,8 @@ module.exports = function(app) {
             { target: 'http://localhost:5000' }
         )
     )
-    app.use(
-        proxy(
+    app.use(                                                // Todo: remember to test out the proxy before this one. If it works, remove this proxy.
+        proxy(                                              // Todo: if the above route does NOT work, remember the change the path of this one. We're not doing surveys here!
             '/api/surveys/:surveyId/:choice',
             { target: 'http://localhost:5000' }
         )

@@ -13,8 +13,8 @@ require('./services/passport')                              // Note: /services/p
 mongoose.connect(keys.mongoURI, { useNewUrlParser: true })  // Fix: "useNewUrlParser" gets rid of DeprecationWarning
 const app = express()
 
-// Middlewares
-app.use(bodyParser.json())
+// General middlewares
+app.use(bodyParser.json())                                  // Note: these middleswares are for all routes; for specific routes, look in middlewares directory 
 app.use(
     cookieSession({
         maxAge: 30 * 24 * 60 * 60 * 1000,
@@ -24,7 +24,9 @@ app.use(
 app.use(passport.initialize())
 app.use(passport.session())
 
+// Routes
 require('./routes/authRoutes')(app)
+require('./routes/billingRoutes')(app)
 
 if (process.env.NODE_ENV === 'production') {
     app.use(express.static('client/build'))                 // Note: Express will serve up production assets from client/build
