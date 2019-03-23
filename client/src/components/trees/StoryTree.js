@@ -14,6 +14,18 @@ class StoryTree extends Component {
         var elems = document.querySelectorAll('.parallax');
         M.Parallax.init(elems, {});
     }
+    renderCredits () {
+        switch (this.props.auth) {
+            case null:
+                return
+            default:
+                return (
+                    <Donations 
+                        credits={this.props.auth.credits}
+                    />
+                )
+        }
+    }
     render () {
         return (
             <React.Fragment>
@@ -39,9 +51,7 @@ class StoryTree extends Component {
                     }}
                 >
                     <div className="row container center-align">
-                        <Donations 
-                            credits={this.props.auth.credits}
-                        />
+                        {this.renderCredits()}
                     </div>
                 </div>
                 <div 
