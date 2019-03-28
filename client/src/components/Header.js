@@ -37,7 +37,7 @@ class Header extends Component {
                     className="nav-wrapper"
                 >
                     <Link 
-                        to={this.props.auth ? '/storytree' : '/'}
+                        to='/'
                         className="
                             brand-logo left
                             black-text"

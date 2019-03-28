@@ -1,9 +1,10 @@
 /* Global styles -------------------------------- */
 body {
     font-family: 'Titillium Web', sans-serif;
+    background-color: black
 }
 a {
-    color: #000;
+    color: #558b2f;
 }
 .nav {
     z-index: 10;
@@ -11,9 +12,13 @@ a {
 .background-gradient {
     background: linear-gradient( 
         to top,
-        rgba(255, 255, 255, 0.65), 
+        rgba(255, 255, 255, 0.75), 
         rgba(255, 255, 255, 0.95) 
     );
+}
+.btn:hover {
+    transition: transform 0.1s;
+    transform: scale(1.05)
 }
 
 /* Parallax styles -------------------------------- */
@@ -24,48 +29,83 @@ a {
     height: 42vh;
 }
 
+/* Modal styles -------------------------------- */
+.background-image-modal {
+    background: linear-gradient( 
+        to top,
+        rgba(255, 255, 255, 0.75), 
+        rgba(255, 255, 255, 0.95) 
+    ), url('../assets/images/matrix.jpg');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+.modal-layout {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh
+}
+.modal-overlay {
+    background: #fff
+}
+
 /* storyTree styles -------------------------------- */
-.col {
-    height: 120px;
+.node-col {
+    height: 14vh;
 }
 .node {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center
+    justify-content: center;
+    overflow: visible;
+
 }
-.node-row-0 {
-    margin: 5px;
-    border: 2px solid #558b2f;
-    height: 95%;
-    width: 20%
+
+/* Scrollspy. styles -------------------------------- */
+.table-of-contents {
+    position: fixed;
+    top: 40%;
+    margin-left: 3%;
+    height: 2rem;
+    z-index: 100;
 }
-.node-row-1 {
-    margin: 5px;
-    border: 2px solid #558b2f;
-    height: 75%;
-    width: 30%
+.table-of-contents li{
+    height: 50px;
 }
-.node-row-2 {
-    margin: 5px;
-    border: 2px solid #558b2f;
-    height: 60%;
-    width: 40%
+.table-of-contents a {
+    font-size: 1.5rem
 }
-.node-row-3 {
-    margin: 5px;
-    border: 2px solid #558b2f;
-    height: 50%;
-    width: 50%
+.table-of-contents a.active {
+    border-left: 2px solid #558b2f;
+    color: black;
 }
-.node-row-4 {
-    margin: 5px;
-    border: 2px solid #558b2f;
-    height: 50%
+.table-of-contents a:hover {
+    border-left: 2px solid #9ccc65;
+}
+
+/* Form styles -------------------------------- */
+input[type=email]:not(.browser-default):focus {
+    border-bottom: 1px solid #558b2f !important;
+    box-shadow: 0 1px 0 0 #558b2f !important
 }
 
 /* Misc. styles -------------------------------- */
 #credits-button {
     position: relative;
     z-index: 100;
-    margin-top: 5px
+    margin-top: 5px;
+
+}
+#new-story-tree {
+    position: fixed;
+    bottom: 4%;
+    left: 94%;
+}
+#new-story-tree:hover {
+    transition: transform 0.1s;
+    transform: scale(1.05)
 }

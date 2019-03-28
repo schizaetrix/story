@@ -12,7 +12,7 @@ class GoogleAuth extends Component {
                     btn-flat black-text
                 "
                 style={{ 
-                    margin: '15px', 
+                    margin: '20px', 
                     marginRight: '30px' 
                 }}
                 href={this.props.onClick}

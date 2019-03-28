@@ -1,98 +1,89 @@
 // -------------------------------------------------
+import _ from 'lodash'
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+// -------------------------------------------------
+import { fetchNodes } from '../../actions'
+import nodeProps, {
+    row2Props, row3Props, row4Props
+} from '../nodes/nodeProps'
+import NodeRow0 from '../nodes/NodeRow0'
+import NodeRow1 from '../nodes/NodeRow1'
+import NodeRow2 from '../nodes/NodeRow2'
+import NodeRow3 from '../nodes/NodeRow3'
+import NodeRow4 from '../nodes/NodeRow4'
 // -------------------------------------------------
 
 class TreePlayerTwo extends Component {
+    componentDidMount () {
+        this.props.fetchNodes()
+    }
+    renderRow2 () {
+        return _.map(row2Props, ({ text, image }) => {
+            return (
+                <NodeRow2 
+                    text={text}
+                    image={image}
+                    key={text}
+                />
+            )
+        }).reverse()
+    }
+    renderRow3 () {
+        return _.map(row3Props, ({ text, image }) => {
+            return (
+                <NodeRow3 
+                    text={text}
+                    image={image}
+                    key={text}
+                />
+            )
+        }).reverse()
+    }
+    renderRow4 () {
+        return _.map(row4Props, ({ text, image }) => {
+            return (
+                <NodeRow4 
+                    text={text}
+                    image={image}
+                    key={text}
+                />
+            )
+        }).reverse()
+    }
     render () {
         return (
             <div 
                 className="container" 
                 style={{ width: '100vw' }}
             >
-                <div className="row" style={{ marginTop: '-50px' }}>
-                    <div className="col s12">
-                        Div 1
-                    </div>
+                <div className="row">
+                    <NodeRow0 
+                        image={nodeProps[0].image}
+                        text={nodeProps[0].text}
+                        key={nodeProps[0].text}
+                    />
+                </div>
+                <div className="row"  style={{ marginBottom: '40px' }}>
+                    <NodeRow1 
+                        image={nodeProps[2].image}
+                        text={nodeProps[2].text}
+                        key={nodeProps[2].text}
+                    />
+                    <NodeRow1 
+                        image={nodeProps[1].image}
+                        text={nodeProps[1].text}
+                        key={nodeProps[1].text}
+                    />
                 </div>
                 <div className="row">
-                    <div className="col s6">
-                        Div 2
-                    </div>
-                    <div className="col s6">
-                        Div 3
-                    </div>
+                    {this.renderRow2()}
                 </div>
                 <div className="row">
-                    <div className="col s3">
-                        Div 4
-                    </div>
-                    <div className="col s3">
-                        Div 5
-                    </div>
-                    <div className="col s3">
-                        Div 6
-                    </div>
-                    <div className="col s3">
-                        Div 7
-                    </div>
+                    {this.renderRow3()}
                 </div>
                 <div className="row">
-                    <div className="col s2">
-                        Div 8
-                    </div>
-                    <div className="col s2">
-                        Div 9
-                    </div>
-                    <div className="col s2">
-                        Div 10
-                    </div>
-                    <div className="col s2">
-                        Div 11
-                    </div>
-                    <div className="col s2">
-                        Div 12
-                    </div>
-                    <div className="col s2">
-                        Div 13
-                    </div>
-                </div>
-                <div className="row">
-                    <div className="col s1">
-                        Div 14
-                    </div>
-                    <div className="col s1">
-                        Div 15
-                    </div>
-                    <div className="col s1">
-                        
-                    </div>
-                    <div className="col s1">
-                        Div 16
-                    </div>
-                    <div className="col s1">
-                        Div 17
-                    </div>
-                    <div className="col s1">
-                        
-                    </div>
-                    <div className="col s1">
-                        Div 18
-                    </div>
-                    <div className="col s1">
-                        Div 19
-                    </div>
-                    <div className="col s1">
-                        
-                    </div>
-                    <div className="col s1">
-                        Div 20
-                    </div>
-                    <div className="col s1">
-                        Div 21
-                    </div>
-                    <div className="col s1">
-                        
-                    </div>
+                    {this.renderRow4()}
                 </div>
             </div>
         )
@@ -100,5 +91,12 @@ class TreePlayerTwo extends Component {
 }
 
 // -------------------------------------------------
-export default TreePlayerTwo
+function mapStateToProps ({ nodes }) {
+    return { nodes }
+}
+// -------------------------------------------------
+export default connect(
+    mapStateToProps,
+    { fetchNodes }
+)(TreePlayerTwo)
 // -------------------------------------------------

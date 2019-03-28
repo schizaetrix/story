@@ -28,10 +28,10 @@ class Landing extends Component {
                     </div>
                 </div>
                 <div 
+                    className="section z-depth-5"
                     style={{ 
                         textAlign: "center",
-                        paddingBottom: '50px',
-                        color: '#558b2f'
+                        paddingBottom: '50px'
                     }}>
                     <Link to={this.props.auth ? '/storytree' : '/'}>
                         <h1>

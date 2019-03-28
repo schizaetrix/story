@@ -4,9 +4,8 @@ const GoogleStrategy = require('passport-google-oauth20').Strategy
 const mongoose = require('mongoose')
 // -------------------------------------------------
 const keys = require('../config/keys')
-// -------------------------------------------------
-
 const User = mongoose.model('users')
+// -------------------------------------------------
 
 passport.serializeUser((user, done) => {                    // Note: serialize is used to assign a cookie to the user and to kick off cookieSession
     done(null, user.id)                                     // Note: 'user.id' is NOT the googleID! It is the id assigned to the user item by MongoDB
@@ -33,7 +32,8 @@ passport.use(
         }
         const createUser = await new User({
             googleId: profile.id,
-            userName: profile.name.givenName
+            userName: profile.name.givenName,
+            email: profile.emails[0].value
         })
         .save()
         done(null, createUser)

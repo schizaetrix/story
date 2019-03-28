@@ -6,8 +6,6 @@ const passport = require('passport')
 const bodyParser = require('body-parser')
 // -------------------------------------------------
 const keys = require('./config/keys')
-require('./models/User')
-require('./services/passport')                              // Note: /services/passport has to be required in AFTER MongoDB models!!!    
 // -------------------------------------------------
 
 mongoose.connect(keys.mongoURI, { useNewUrlParser: true })  // Fix: "useNewUrlParser" gets rid of DeprecationWarning
@@ -24,9 +22,15 @@ app.use(
 app.use(passport.initialize())
 app.use(passport.session())
 
+// Models
+require('./models/User')
+require('./models/Node')
+require('./services/passport')                              // Note: /services/passport has to be required in AFTER MongoDB models!!!    
+
 // Routes
 require('./routes/authRoutes')(app)
 require('./routes/billingRoutes')(app)
+require('./routes/storyRoutes')(app)
 
 if (process.env.NODE_ENV === 'production') {
     app.use(express.static('client/build'))                 // Note: Express will serve up production assets from client/build

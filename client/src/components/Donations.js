@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import StripeCheckout from 'react-stripe-checkout'
 // -------------------------------------------------
-import * as actions from '../actions'
+import { handleToken } from '../actions'
 // -------------------------------------------------
 
 class Donations extends Component {
@@ -13,7 +13,7 @@ class Donations extends Component {
                 name="storyTree"
                 description="$5 for 5 story credits" 
                 amount={500}
-                token={token => this.props.handleToken(token)}
+                token={(token) => this.props.handleToken(token)}
                 stripeKey={process.env.REACT_APP_STRIPE_KEY}
             >
                 <button 
@@ -22,7 +22,9 @@ class Donations extends Component {
                         darken-2 black-text"
                     id="credits-button"
                 >
-                    <h6>{this.props.credits} Credits Remaining!</h6>
+                    <h6>
+                        {this.props.credits} Credits Left!
+                    </h6>
                 </button>
             </StripeCheckout>
         )
@@ -32,6 +34,6 @@ class Donations extends Component {
 // -------------------------------------------------
 export default connect(
     null, 
-    actions
+    { handleToken }
 )(Donations)
 // -------------------------------------------------
