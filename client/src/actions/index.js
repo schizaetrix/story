@@ -38,13 +38,13 @@ export const storyStart = (formValues) => async (dispatch, getState) => {
     const subject = storyAssets.subject
     const body = storyAssets.body
     const image = storyAssets.url
+    const key = storyAssets.key
     const recipients = `${formValues.values.opponent}, ${email}`
-    const choiceA = storyAssets.choiceA
-    const choiceB = storyAssets.choiceB
+    const children = storyAssets.children
 
     const res = await axios.post('/api/nodes/first', {
-        title, subject, body, image,
-        recipients, choiceA, choiceB
+        title, subject, body, image, key,
+        recipients, children
     })
 
     dispatch({

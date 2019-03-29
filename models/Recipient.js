@@ -9,7 +9,7 @@ const recipientSchema = new Schema({
         type: Boolean,
         default: false
     },
-    chose: String,
+    chosen: String,
     nodeState: {
         isOpen: {
             type: Boolean,

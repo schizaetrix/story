@@ -11,21 +11,14 @@ const nodeSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'User'
     },
-    opponent: [Opponent],                               // Note: For future reference, this probably did not need to be an array... 
+    opponent: [Opponent],                                   // Note: For future reference, this probably did not need to be an array... 
     title: String,
     subject: String,
     body: String,
     image: String,
-    node: String,
-    recipients: [Recipient],                             // Done: determine if RecipientSchema needs to be an array in order for subdocumenting to work properly
-    choiceA: { 
-        type: String,
-        default: 'Choice A' 
-    },
-    choiceB: {
-        type: String,
-        default: 'Choice B'
-    },
+    key: Number,
+    children: [],
+    recipients: [Recipient],                                // Done: determine if RecipientSchema needs to be an array in order for subdocumenting to work properly
     dateSent: Date,
     lastResponded: Date
 })
