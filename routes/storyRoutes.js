@@ -75,41 +75,40 @@ module.exports = (app) => {
 
     app.get(
         '/api/nodes/:nodeId/:key/:chosen',
-        async (req, res) => {                                   // Done: this needs to be reconfigured as the score page that redirects the user back to their email for the next step in the story
-            console.log(req.body)
-            const email = req.user.email
-            const url = req.originalUrl                         // Todo: here is where we would set up logic to remove lives, calculate score, etc...
-            const path = new Path('/api/nodes/:nodeId/:key/:chosen')
-            const match = path.test(url)
-            let storyNode = {}
-            Object.values(Stories).forEach((story) => {
-                if (story.key == match.chosen) {
-                    storyNode = story
-                }
-            })
-            const {
-                title, subject, body, key, children
-            } = storyNode
-            const players = await Node.findOne({
-                _id: match.nodeId
-            })
-            const node = new Node({
-                title, subject, body, key, children,
-                image: storyNode.url,
-                recipients: [{email}],
-                _user: req.user.id,
-                playerOne: players.playerOne,
-                playerTwo: players.playerTwo,
-                dateSent: Date.now()
-            })
-            const mailer = new Mailer(node, nodeTemplate(node))
-            try {
-                await mailer.send()
-                await node.save()
+        (req, res) => {                                   // Done: this needs to be reconfigured as the score page that redirects the user back to their email for the next step in the story
+            // const email = req.user.email
+            // const url = req.originalUrl                         // Todo: here is where we would set up logic to remove lives, calculate score, etc...
+            // const path = new Path('/api/nodes/:nodeId/:key/:chosen')
+            // const match = path.test(url)
+            // let storyNode = {}
+            // Object.values(Stories).forEach((story) => {
+            //     if (story.key == match.chosen) {
+            //         storyNode = story
+            //     }
+            // })
+            // const {
+            //     title, subject, body, key, children
+            // } = storyNode
+            // const players = await Node.findOne({
+            //     _id: match.nodeId
+            // })
+            // const node = new Node({
+            //     title, subject, body, key, children,
+            //     image: storyNode.url,
+            //     recipients: [{email}],
+            //     _user: req.user.id,
+            //     playerOne: players.playerOne,
+            //     playerTwo: players.playerTwo,
+            //     dateSent: Date.now()
+            // })
+            // const mailer = new Mailer(node, nodeTemplate(node))
+            // try {
+            //     await mailer.send()
+            //     await node.save()
                 res.send('Thanks for your feedback!')               // Note: remember, you can use res.redirect() here to send to a client-side route.
-            } catch (err) { 
-                res.status(422).send(err)
-            }            
+            // } catch (err) { 
+            //     res.status(422).send(err)
+            // }            
         }
     )
 
@@ -128,45 +127,113 @@ module.exports = (app) => {
 
     app.post(
         '/api/nodes/webhooks',
-        (req, res) => {
-            const p = new Path('/api/nodes/:nodeId/:key/:chosen')
-            _.chain(req.body)
-                .map(({ email, url }) => {
-                    const match = p.test(
-                        new URL(url).pathname
-                    )
-                    if (match) {
-                        return { 
-                            email, 
-                            nodeId: match.nodeId,
-                            key: match.key,
-                            chosen: match.chosen
+        async (req, res) => {
+            let storyNode = {}
+            const path = new Path('/api/nodes/:nodeId/:key/:chosen')
+            const events = _.map (req.body, (event) => {
+                const match = path.test(new URL(event.url).pathname)
+                if (match) {
+                    return {
+                        event: event.email,
+                        nodeId: match.nodeId,
+                        key: match.key,
+                        chosen: match.chosen
+                    }
+                }
+            })
+            const compactEvents = _.compact(events)
+            const uniqueEvents = _.uniqBy(compactEvents, 'email', 'nodeId')
+            _.each(uniqueEvents, async (event) => {
+                Node.updateOne({
+                    _id: event.nodeId,
+                    recipients: {
+                        $elemMatch: { 
+                            email: event.email,
+                            responded: false
                         }
                     }
+                }, {
+                    $set: { 
+                        'recipients.$.responded': true,
+                        'recipients.$.chosen': event.chosen,
+                        'recipients.$.nodeState.hasVisited': true 
+                    },
+                    lastResponded: new Date()
+                }).exec()
+                Object.values(Stories).forEach((story) => {
+                    if (story.key == match.chosen) {
+                        storyNode = story
+                    }
                 })
-                .compact()
-                .uniqBy('email', 'nodeId')
-                .each(({ nodeId, email, chosen }) => {
-                    Node.updateOne({
-                        _id: nodeId,
-                        recipients: {
-                            $elemMatch: { 
-                                email: email,
-                                responded: false
-                            }
-                        }
-                    }, {
-                        $set: { 
-                            'recipients.$.responded': true,
-                            'recipients.$.chosen': chosen,
-                            'recipients.$.nodeState.hasVisited': true 
-                        },
-                        lastResponded: new Date()
-                    }).exec()
+                const {
+                    title, subject, body, key, children
+                } = storyNode
+                const players = await Node.findOne({
+                    _id: match.nodeId
                 })
-                .value()
-            res.send({})
+                const node = new Node({
+                    title, subject, body, key, children,
+                    image: storyNode.url,
+                    recipients: [ match.email ],
+                    _user: req.user.id,
+                    playerOne: players.playerOne,
+                    playerTwo: players.playerTwo,
+                    dateSent: Date.now()
+                })
+                const mailer = new Mailer(node, nodeTemplate(node))
+                try {
+                    await mailer.send()
+                    await node.save()
+                    res.send('Thanks for your feedback!')               // Note: remember, you can use res.redirect() here to send to a client-side route.
+                } catch (err) { 
+                    res.status(422).send(err)
+                }
+            })
+            .value()
         }
     )
+
+//     app.post(
+//         '/api/nodes/webhooks',
+//         (req, res) => {
+//             const p = new Path('/api/nodes/:nodeId/:key/:chosen')
+//             _.chain(req.body)
+//                 .map(({ email, url }) => {
+//                     const match = p.test(
+//                         new URL(url).pathname
+//                     )
+//                     if (match) {
+//                         return { 
+//                             email, 
+//                             nodeId: match.nodeId,
+//                             key: match.key,
+//                             chosen: match.chosen
+//                         }
+//                     }
+//                 })
+//                 .compact()
+//                 .uniqBy('email', 'nodeId')
+//                 .each(({ nodeId, email, chosen }) => {
+//                     Node.updateOne({
+//                         _id: nodeId,
+//                         recipients: {
+//                             $elemMatch: { 
+//                                 email: email,
+//                                 responded: false
+//                             }
+//                         }
+//                     }, {
+//                         $set: { 
+//                             'recipients.$.responded': true,
+//                             'recipients.$.chosen': chosen,
+//                             'recipients.$.nodeState.hasVisited': true 
+//                         },
+//                         lastResponded: new Date()
+//                     }).exec()
+//                 })
+//                 .value()
+//             res.send({})
+//         }
+//     )
 }
 // -------------------------------------------------
