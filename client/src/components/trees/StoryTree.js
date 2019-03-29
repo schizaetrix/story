@@ -38,8 +38,8 @@ class StoryTree extends Component {
         )
     }
     scrollspyPlayer1 () {
-        switch (this.props.auth) {
-            case null:
+        switch (this.props.node) {
+            case undefined:
                 return (
                     <li key="a">
                         <a href="#tree-one"  className="active">
@@ -51,7 +51,10 @@ class StoryTree extends Component {
                 return (
                     <li key="a">    
                         <a href="#tree-one" className="active">
-                            {this.props.auth.userName}
+                            {this.props.node.playerOne[0] ? 
+                                this.props.node.playerOne[0].userName :
+                                'Player 1'
+                            }
                         </a>
                     </li>
                 )
@@ -71,7 +74,10 @@ class StoryTree extends Component {
                 return (
                     <li key="b">    
                         <a href="#tree-two">
-                            {this.props.node.opponent[0].userName}
+                            {this.props.node.playerTwo[0] ? 
+                                this.props.node.playerTwo[0].userName :
+                                'Player 2'
+                            }
                         </a>
                     </li>
                 )
@@ -124,11 +130,8 @@ class StoryTree extends Component {
 }
 
 // -------------------------------------------------
-function mapStateToProps ({ auth, nodes }) {
-    return { 
-        auth,
-        node: nodes[nodes.length - 1]
-    }
+function mapStateToProps ({ nodes }) {
+    return { node: nodes[0] }
 }
 // -------------------------------------------------
 export default connect(

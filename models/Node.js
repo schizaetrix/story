@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 const { Schema } = mongoose
 // -------------------------------------------------
 const Recipient = require('./Recipient')
-const Opponent = require('./Opponent')
+const Player = require('./Player')
 // -------------------------------------------------
 
 const nodeSchema = new Schema({
@@ -11,7 +11,8 @@ const nodeSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'User'
     },
-    opponent: [Opponent],                                   // Note: For future reference, this probably did not need to be an array... 
+    playerOne: [Player],                                   // Note: For future reference, this probably did not need to be an array... 
+    playerTwo: [Player],
     title: String,
     subject: String,
     body: String,

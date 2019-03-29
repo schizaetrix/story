@@ -22,7 +22,7 @@ class Header extends Component {
                 return (
                     <GoogleAuth 
                         onClick="/api/logout"
-                        authAction="Log Out"
+                        authAction={`Log Out ${this.props.auth.userName}`}
                     />
                 )
         }

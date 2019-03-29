@@ -1,26 +1,4 @@
 // -------------------------------------------------
-// const Node1 = require('./images/sleeping-hacker.jpg')
-// const Node2 = require('./images/white-rabbit.jpg')
-// const Node3 = require('./images/red-pill-blue-pill.jpg') 
-// const Node4 = require('./images/the-real-world.jpg')
-// const Node5 = require('./images/dont-fall-neo.jpg')
-// const Node6 = require('./images/through-the-mirror.jpg')
-// const Node7 = require('./images/meet-trinity.jpg')
-// const Node8 = require('./images/dont-talk-neo.jpg')
-// const Node9 = require('./images/end-of-the-line.jpg')
-// const Node10 = require('./images/i-know-kung-fu.jpg')
-// const Node11 = require('./images/dodging-bullets.jpg')
-// const Node12 = require('./images/here-take-a-cookie.jpg')
-// const Node13 = require('./images/there-is-no-spoon.jpg')
-// const Node14 = require('./images/sleeping-beauty.jpg')
-// const Node15 = require('./images/stopping-bullets.jpg')
-// const Node16 = require('./images/system-failure.jpg')
-// const Node17 = require('./images/grey-goo.jpg')
-// const Node18 = require('./images/my-name-is-neo.jpg')
-// const Node19 = require('./images/crypto-agents.jpg')
-// const Node20 = require('./images/worst-dream-ever.jpg')
-// const Node21 = require('./images/building-jump.jpg')
-// -------------------------------------------------
 
 const Stories = {
     node01: {

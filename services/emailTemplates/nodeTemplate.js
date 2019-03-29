@@ -8,10 +8,18 @@ function nodeTemplate (node) {
         let linksHTML = ''
         node.children.map((child) => {
             Object.values(Stories).forEach((story) => {
-                if (story.key === child ) {
+                if (story.key == child && story.isDeath !== true) {
                     const html = 
                         `<div>
                             <a href="${keys.redirectDomain}/api/nodes/${node.id}/${node.key}/${story.key}">
+                                ${story.title}
+                            </a>
+                        </div>`
+                    linksHTML += html
+                } else if (story.key == child && story.isDeath === true) {
+                    const html = 
+                        `<div>
+                            <a href="${keys.redirectDomain}/api/death/${node.id}/${node.key}/${story.key}">
                                 ${story.title}
                             </a>
                         </div>`

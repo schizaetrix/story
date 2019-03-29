@@ -62,7 +62,11 @@ a {
     align-items: center;
     justify-content: center;
     overflow: visible;
-
+    transition: transform 0.2s;
+}
+.node:hover {
+    transition: transform 0.2s;
+    transform: scale(1.05)
 }
 
 /* Scrollspy. styles -------------------------------- */
