@@ -9,25 +9,7 @@ const recipientSchema = new Schema({
         type: Boolean,
         default: false
     },
-    chosen: String,
-    nodeState: {
-        isOpen: {
-            type: Boolean,
-            default: false
-        },
-        hasVisited: {
-            type: Boolean,
-            default: false
-        },
-        isDeath: {
-            type: Boolean,
-            default: false
-        },
-        gameOver: {
-            type: Boolean,
-            default: false
-        }
-    }
+    chosen: String
 })
 
 // -------------------------------------------------

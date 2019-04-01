@@ -25,6 +25,8 @@ app.use(passport.session())
 // Models
 require('./models/User')
 require('./models/Node')
+require('./models/Tree')
+require('./models/Webhooks')
 require('./services/passport')                              // Note: /services/passport has to be required in AFTER MongoDB models!!!    
 
 // Routes

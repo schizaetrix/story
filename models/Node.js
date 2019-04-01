@@ -7,6 +7,7 @@ const Player = require('./Player')
 // -------------------------------------------------
 
 const nodeSchema = new Schema({
+    treeSession: Number,
     _user: {
         type: Schema.Types.ObjectId,
         ref: 'User'
@@ -19,6 +20,8 @@ const nodeSchema = new Schema({
     image: String,
     key: Number,
     children: [],
+    gchilds0: [],
+    gchilds1: [],
     recipients: [Recipient],                                // Done: determine if RecipientSchema needs to be an array in order for subdocumenting to work properly
     dateSent: Date,
     lastResponded: Date

@@ -32,7 +32,9 @@ const Stories = {
         key: 1,
         isDeath: false,
         isWin: false,
-        children: [ 2, 3 ]
+        children: [ 2, 3 ],
+        gchilds0: [ 4, 5 ],
+        gchilds1: [ 6, 7 ]
     },
     node02: {
         url: 'https://dl.dropboxusercontent.com/s/ginycdlbo5b8aky/Node1.jpg',
@@ -43,7 +45,9 @@ const Stories = {
         key: 2,
         isDeath: false,
         isWin: false,
-        children: [ 4, 5 ]
+        children: [ 4, 5 ],
+        gchilds0: [ 8, 9 ],
+        gchilds1: [ 0, 0 ]
     },
     node03: {
         url: 'https://dl.dropboxusercontent.com/s/ginycdlbo5b8aky/Node1.jpg',
@@ -54,7 +58,9 @@ const Stories = {
         key: 3,
         isDeath: false,
         isWin: false,
-        children: [ 6, 7 ]
+        children: [ 6, 7 ],
+        gchilds0: [ 10, 11 ],
+        gchilds1: [ 12, 13 ]
     },
     node04: {
         url: 'https://dl.dropboxusercontent.com/s/ginycdlbo5b8aky/Node1.jpg',

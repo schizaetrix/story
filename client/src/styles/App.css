@@ -101,7 +101,8 @@ input[type=email]:not(.browser-default):focus {
 #credits-button {
     position: relative;
     z-index: 100;
-    margin-top: 5px;
+    margin-top: 11.5px;
+    font-size: 1.2rem
 
 }
 #new-story-tree {

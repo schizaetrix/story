@@ -18,13 +18,11 @@ class Donations extends Component {
             >
                 <button 
                     className="
-                        btn light-green 
+                        btn light-green
                         darken-2 black-text"
                     id="credits-button"
                 >
-                    <h6>
-                        {this.props.credits} Credits Left!
-                    </h6>
+                    {this.props.credits} Credits Left!
                 </button>
             </StripeCheckout>
         )

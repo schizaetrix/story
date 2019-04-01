@@ -2,7 +2,11 @@
 import axios from 'axios'
 // -------------------------------------------------
 import history from '../history'
-import { FETCH_USER, FETCH_NODES } from './types'
+import { 
+    FETCH_USER, 
+    FETCH_NODES,
+    FETCH_TREE
+} from './types'
 import Stories from '../assets/storyDB'
 // -------------------------------------------------
 
@@ -18,6 +22,14 @@ export const fetchNodes = () => async (dispatch) => {
     const res = await axios.get('/api/nodes')
     dispatch({
         type: FETCH_NODES,
+        payload: res.data
+    })
+}
+
+export const fetchTree = () => async (dispatch) => {
+    const res = await axios.get('/api/tree')
+    dispatch({
+        type: FETCH_TREE,
         payload: res.data
     })
 }
@@ -41,10 +53,12 @@ export const storyStart = (formValues) => async (dispatch, getState) => {
     const key = storyAssets.key
     const recipients = `${formValues.values.opponent}, ${email}`
     const children = storyAssets.children
+    const gchilds0 = storyAssets.gchilds0
+    const gchilds1 = storyAssets.gchilds1
 
     const res = await axios.post('/api/nodes/first', {
         title, subject, body, image, key,
-        recipients, children
+        recipients, children, gchilds0, gchilds1
     })
 
     dispatch({

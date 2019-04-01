@@ -1,16 +1,17 @@
 // -------------------------------------------------
-const _ = require('lodash')
-const { Path } = require('path-parser')
-const { URL } = require('url')
 const mongoose = require('mongoose')
 // -------------------------------------------------
 const Node = mongoose.model('nodes')                            // Fix: mongoose may throw up errors during testing if a model file is required in multiple times. Requiring models in this way avoids that issue
 const User = mongoose.model('users')
+const Tree = mongoose.model('trees')
+const Webhook = mongoose.model('webhooks')
 const requireLogin = require('../middlewares/requireLogin')
 const requireCredits = require('../middlewares/requireCredits')
+const chosenParse = require('../middlewares/chosenParse')
+const deathParse = require('../middlewares/deathParse')
+const winParse = require('../middlewares/winParse')
 const Mailer = require('../services/Mailer')
-const nodeTemplate = require('../services/emailTemplates/nodeTemplate')
-const Stories = require('../services/storyDB')
+const nodeTemplateFirst = require('../services/emailTemplates/nodeTemplateFirst')
 // -------------------------------------------------
 
 module.exports = (app) => {
@@ -37,20 +38,45 @@ module.exports = (app) => {
         }
     )
     
+    app.get(
+        '/api/tree',
+        requireLogin,
+        async (req, res) => {
+            const tree = await Tree.find({                  // Todo: pick back up here tomorrow
+                $or: [
+                    { 'playerOne.player': {
+                        $elemMatch: {
+                            email: req.user.email
+                        }
+                    } },
+                    { 'playerTwo.player': {
+                        $elemMatch: {
+                            email: req.user.email
+                        }
+                    } }
+                ]                                     
+            })
+            res.send(tree)
+        }
+    )
+
     app.post(
         '/api/nodes/first',
         requireLogin, requireCredits,
         async (req, res) => {
             const { 
                 title, subject, body, image, key,
-                recipients, children
+                recipients, children, gchilds0, gchilds1
             } = req.body
+            const treeSessionGen = Math.floor(Math.random() * 1000) + 1
             const recipientsArray = recipients
                 .split(',')
                 .map((email) => ({ email: email.trim() }))
             const node = new Node({
-                title, subject, body, image, key, children,
+                title, subject, body, image, key, 
+                children, gchilds0, gchilds1,
                 recipients: recipientsArray, 
+                treeSession: treeSessionGen,
                 _user: req.user.id,
                 playerOne: await User.findOne({
                     email: recipientsArray[1].email
@@ -60,10 +86,25 @@ module.exports = (app) => {
                 }),
                 dateSent: Date.now()
             })
-            const mailer = new Mailer(node, nodeTemplate(node))
+            const mailer = new Mailer(node, nodeTemplateFirst(node))
+            const tree = new Tree({
+                treeSession: treeSessionGen,
+                gameOn: true,
+                playerOne: {
+                    player: await User.findOne({
+                        email: recipientsArray[1].email
+                    })
+                },
+                playerTwo: {
+                    player: await User.findOne({
+                        email: recipientsArray[0].email
+                    })
+                }
+            })
             try {
                 await mailer.send()
                 await node.save()
+                await tree.save()
                 req.user.credits -= 1
                 const user = await req.user.save()              // Note: we save the user model instance into a new user object, because the previous one is considered stale
                 res.send(user)
@@ -74,166 +115,42 @@ module.exports = (app) => {
     )
 
     app.get(
-        '/api/nodes/:nodeId/:key/:chosen',
-        (req, res) => {                                   // Done: this needs to be reconfigured as the score page that redirects the user back to their email for the next step in the story
-            // const email = req.user.email
-            // const url = req.originalUrl                         // Todo: here is where we would set up logic to remove lives, calculate score, etc...
-            // const path = new Path('/api/nodes/:nodeId/:key/:chosen')
-            // const match = path.test(url)
-            // let storyNode = {}
-            // Object.values(Stories).forEach((story) => {
-            //     if (story.key == match.chosen) {
-            //         storyNode = story
-            //     }
-            // })
-            // const {
-            //     title, subject, body, key, children
-            // } = storyNode
-            // const players = await Node.findOne({
-            //     _id: match.nodeId
-            // })
-            // const node = new Node({
-            //     title, subject, body, key, children,
-            //     image: storyNode.url,
-            //     recipients: [{email}],
-            //     _user: req.user.id,
-            //     playerOne: players.playerOne,
-            //     playerTwo: players.playerTwo,
-            //     dateSent: Date.now()
-            // })
-            // const mailer = new Mailer(node, nodeTemplate(node))
-            // try {
-            //     await mailer.send()
-            //     await node.save()
-                res.send('Thanks for your feedback!')               // Note: remember, you can use res.redirect() here to send to a client-side route.
-            // } catch (err) { 
-            //     res.status(422).send(err)
-            // }            
+        '/api/nodes/:treeId/:nodeId/:nodeKey/:chosen/:gchild1/:gchild2/path',
+        (req, res) => {                                         // Todo: this needs to be reconfigured as the score page that redirects the user back to their email for the next step in the story. Here is where we would set up logic to remove lives, calculate score, etc...
+            res.send('This is a normal path')                   // Note: remember, you can use res.redirect() here to send to a client-side route.           
         }
     )
 
     app.get(
-        '/api/death/:nodeId/:key/:chosen',
-        requireLogin,
+        '/api/nodes/:treeId/:nodeId/:key/:chosen/death',
         (req, res) => {
-            const email = req.user.email
-            const url = req.originalUrl
-            const path = new Path('/api/death/:nodeId/:key/:chosen')
-            const match = path.test(url)
-            console.log(match)
-            res.send('Thanks for your feedback!')
+            res.send("You have died! Try again with a previous email. Don't forget to check out your storyTree to help you decide your next path!" )
+        }
+    )
+
+    app.get(
+        '/api/nodes/:treeId/:nodeId/:key/:chosen/win',
+        (req, res) => {
+            res.send("You've survived the Matrix! You still have some time before your opponent reaches their finish line. Go back and try some more paths and rack up more points!")
         }
     )
 
     app.post(
-        '/api/nodes/webhooks',
-        async (req, res) => {
-            let storyNode = {}
-            const path = new Path('/api/nodes/:nodeId/:key/:chosen')
-            const events = _.map (req.body, (event) => {
-                const match = path.test(new URL(event.url).pathname)
-                if (match) {
-                    return {
-                        event: event.email,
-                        nodeId: match.nodeId,
-                        key: match.key,
-                        chosen: match.chosen
-                    }
-                }
+        '/api/nodes/webhooks',                                  // Todo: create a de-duplication model to filter webhook events before they ever go to the path parser middlewares
+        async (req, res, next) => {
+            const existingWebhook = await Webhook.findOne({
+                sgEventId: req.body[0].sg_event_id
             })
-            const compactEvents = _.compact(events)
-            const uniqueEvents = _.uniqBy(compactEvents, 'email', 'nodeId')
-            _.each(uniqueEvents, async (event) => {
-                Node.updateOne({
-                    _id: event.nodeId,
-                    recipients: {
-                        $elemMatch: { 
-                            email: event.email,
-                            responded: false
-                        }
-                    }
-                }, {
-                    $set: { 
-                        'recipients.$.responded': true,
-                        'recipients.$.chosen': event.chosen,
-                        'recipients.$.nodeState.hasVisited': true 
-                    },
-                    lastResponded: new Date()
-                }).exec()
-                Object.values(Stories).forEach((story) => {
-                    if (story.key == match.chosen) {
-                        storyNode = story
-                    }
+            if (!existingWebhook) {
+                const webhook = new Webhook({
+                    sgEventId: req.body[0].sg_event_id
                 })
-                const {
-                    title, subject, body, key, children
-                } = storyNode
-                const players = await Node.findOne({
-                    _id: match.nodeId
-                })
-                const node = new Node({
-                    title, subject, body, key, children,
-                    image: storyNode.url,
-                    recipients: [ match.email ],
-                    _user: req.user.id,
-                    playerOne: players.playerOne,
-                    playerTwo: players.playerTwo,
-                    dateSent: Date.now()
-                })
-                const mailer = new Mailer(node, nodeTemplate(node))
-                try {
-                    await mailer.send()
-                    await node.save()
-                    res.send('Thanks for your feedback!')               // Note: remember, you can use res.redirect() here to send to a client-side route.
-                } catch (err) { 
-                    res.status(422).send(err)
-                }
-            })
-            .value()
-        }
+                try { await webhook.save() } 
+                catch (err) { res.status(422).send(err) }
+                next()
+            } else { res.end() }
+        },
+        deathParse, winParse, chosenParse
     )
-
-//     app.post(
-//         '/api/nodes/webhooks',
-//         (req, res) => {
-//             const p = new Path('/api/nodes/:nodeId/:key/:chosen')
-//             _.chain(req.body)
-//                 .map(({ email, url }) => {
-//                     const match = p.test(
-//                         new URL(url).pathname
-//                     )
-//                     if (match) {
-//                         return { 
-//                             email, 
-//                             nodeId: match.nodeId,
-//                             key: match.key,
-//                             chosen: match.chosen
-//                         }
-//                     }
-//                 })
-//                 .compact()
-//                 .uniqBy('email', 'nodeId')
-//                 .each(({ nodeId, email, chosen }) => {
-//                     Node.updateOne({
-//                         _id: nodeId,
-//                         recipients: {
-//                             $elemMatch: { 
-//                                 email: email,
-//                                 responded: false
-//                             }
-//                         }
-//                     }, {
-//                         $set: { 
-//                             'recipients.$.responded': true,
-//                             'recipients.$.chosen': chosen,
-//                             'recipients.$.nodeState.hasVisited': true 
-//                         },
-//                         lastResponded: new Date()
-//                     }).exec()
-//                 })
-//                 .value()
-//             res.send({})
-//         }
-//     )
 }
 // -------------------------------------------------

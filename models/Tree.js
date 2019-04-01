@@ -2,190 +2,440 @@
 const mongoose = require('mongoose')
 const { Schema } = mongoose
 // -------------------------------------------------
-const NodeSchema = require('./Node')
-const NodeToggle = require('./NodeToggle')
+const Player = require('./Player')
 // -------------------------------------------------
 
-const treeSchema = new Schema({                             // Hold: this schema is for a future feature and is currently not in use.
+const treeSchema = new Schema({
+    treeSession: Number,
+    gameOn: {
+        type: Boolean,
+        default: false
+    },
     playerOne: {
-        _user: {
-            type: Schema.Types.ObjectId,
-            ref: 'User'
+        player: [Player],
+        1: {
+            isOpen: {
+                type: Boolean,
+                default: true
+            },
+            hasVisited: {
+                type: Boolean,
+                default: true
+            }
         },
-        email: String,
-        node01: {
-            storyNode: [NodeSchema]
+        2: {
+            isOpen: {
+                type: Boolean,
+                default: true
+            },
+            hasVisited: {
+                type: Boolean,
+                default: false
+            }
         },
-        node02: {
-            toggles: [NodeToggle],
-            storyNode: [NodeSchema]
+        3: {
+            isOpen: {
+                type: Boolean,
+                default: true
+            },
+            hasVisited: {
+                type: Boolean,
+                default: false
+            }
         },
-        node03: {
-            toggles: [NodeToggle],
-            storyNode: [NodeSchema]
+        4: {
+            isOpen: {
+                type: Boolean,
+                default: false
+            },
+            hasVisited: {
+                type: Boolean,
+                default: false
+            }
         },
-        node04: {
-            toggles: [NodeToggle],
-            storyNode: [NodeSchema]
+        5: {
+            isOpen: {
+                type: Boolean,
+                default: false
+            },
+            hasVisited: {
+                type: Boolean,
+                default: false
+            }
         },
-        node05: {
-            toggles: [NodeToggle],
-            storyNode: [NodeSchema]
+        6: {
+            isOpen: {
+                type: Boolean,
+                default: false
+            },
+            hasVisited: {
+                type: Boolean,
+                default: false
+            }
         },
-        node06: {
-            toggles: [NodeToggle],
-            storyNode: [NodeSchema]
+        7: {
+            isOpen: {
+                type: Boolean,
+                default: false
+            },
+            hasVisited: {
+                type: Boolean,
+                default: false
+            }
         },
-        node07: {
-            toggles: [NodeToggle],
-            storyNode: [NodeSchema]
+        8: {
+            isOpen: {
+                type: Boolean,
+                default: false
+            },
+            hasVisited: {
+                type: Boolean,
+                default: false
+            }
         },
-        node08: {
-            toggles: [NodeToggle],
-            storyNode: [NodeSchema]
+        9: {
+            isOpen: {
+                type: Boolean,
+                default: false
+            },
+            hasVisited: {
+                type: Boolean,
+                default: false
+            }
         },
-        node09: {
-            toggles: [NodeToggle],
-            storyNode: [NodeSchema]
+        10: {
+            isOpen: {
+                type: Boolean,
+                default: false
+            },
+            hasVisited: {
+                type: Boolean,
+                default: false
+            }
         },
-        node10: {
-            toggles: [NodeToggle],
-            storyNode: [NodeSchema]
+        11: {
+            isOpen: {
+                type: Boolean,
+                default: false
+            },
+            hasVisited: {
+                type: Boolean,
+                default: false
+            }
         },
-        node11: {
-            toggles: [NodeToggle],
-            storyNode: [NodeSchema]
+        12: {
+            isOpen: {
+                type: Boolean,
+                default: false
+            },
+            hasVisited: {
+                type: Boolean,
+                default: false
+            }
         },
-        node12: {
-            toggles: [NodeToggle],
-            storyNode: [NodeSchema]
+        13: {
+            isOpen: {
+                type: Boolean,
+                default: false
+            },
+            hasVisited: {
+                type: Boolean,
+                default: false
+            }
         },
-        node13: {
-            toggles: [NodeToggle],
-            storyNode: [NodeSchema]
+        14: {
+            isOpen: {
+                type: Boolean,
+                default: false
+            },
+            hasVisited: {
+                type: Boolean,
+                default: false
+            }
         },
-        node14: {
-            toggles: [NodeToggle],
-            storyNode: [NodeSchema]
+        15: {
+            isOpen: {
+                type: Boolean,
+                default: false
+            },
+            hasVisited: {
+                type: Boolean,
+                default: false
+            }
         },
-        node15: {
-            toggles: [NodeToggle],
-            storyNode: [NodeSchema]
+        16: {
+            isOpen: {
+                type: Boolean,
+                default: false
+            },
+            hasVisited: {
+                type: Boolean,
+                default: false
+            }
         },
-        node16: {
-            toggles: [NodeToggle],
-            storyNode: [NodeSchema]
+        17: {
+            isOpen: {
+                type: Boolean,
+                default: false
+            },
+            hasVisited: {
+                type: Boolean,
+                default: false
+            }
         },
-        node17: {
-            toggles: [NodeToggle],
-            storyNode: [NodeSchema]
+        18: {
+            isOpen: {
+                type: Boolean,
+                default: false
+            },
+            hasVisited: {
+                type: Boolean,
+                default: false
+            }
         },
-        node18: {
-            toggles: [NodeToggle],
-            storyNode: [NodeSchema]
+        19: {
+            isOpen: {
+                type: Boolean,
+                default: false
+            },
+            hasVisited: {
+                type: Boolean,
+                default: false
+            }
         },
-        node19: {
-            toggles: [NodeToggle],
-            storyNode: [NodeSchema]
+        20: {
+            isOpen: {
+                type: Boolean,
+                default: false
+            },
+            hasVisited: {
+                type: Boolean,
+                default: false
+            }
         },
-        node20: {
-            toggles: [NodeToggle],
-            storyNode: [NodeSchema]
-        },
-        node21: {
-            toggles: [NodeToggle],
-            storyNode: [NodeSchema]
-        },
+        21: {
+            isOpen: {
+                type: Boolean,
+                default: false
+            },
+            hasVisited: {
+                type: Boolean,
+                default: false
+            }
+        }
     },
     playerTwo: {
-        _user: {
-            type: Schema.Types.ObjectId,
-            ref: 'User'
+        player: [Player],
+        1: {
+            isOpen: {
+                type: Boolean,
+                default: true
+            },
+            hasVisited: {
+                type: Boolean,
+                default: true
+            }
         },
-        email: String,
-        node01: {
-            storyNode: [NodeSchema]
+        2: {
+            isOpen: {
+                type: Boolean,
+                default: true
+            },
+            hasVisited: {
+                type: Boolean,
+                default: false
+            }
         },
-        node02: {
-            toggles: [NodeToggle],
-            storyNode: [NodeSchema]
+        3: {
+            isOpen: {
+                type: Boolean,
+                default: true
+            },
+            hasVisited: {
+                type: Boolean,
+                default: false
+            }
         },
-        node03: {
-            toggles: [NodeToggle],
-            storyNode: [NodeSchema]
+        4: {
+            isOpen: {
+                type: Boolean,
+                default: false
+            },
+            hasVisited: {
+                type: Boolean,
+                default: false
+            }
         },
-        node04: {
-            toggles: [NodeToggle],
-            storyNode: [NodeSchema]
+        5: {
+            isOpen: {
+                type: Boolean,
+                default: false
+            },
+            hasVisited: {
+                type: Boolean,
+                default: false
+            }
         },
-        node05: {
-            toggles: [NodeToggle],
-            storyNode: [NodeSchema]
+        6: {
+            isOpen: {
+                type: Boolean,
+                default: false
+            },
+            hasVisited: {
+                type: Boolean,
+                default: false
+            }
         },
-        node06: {
-            toggles: [NodeToggle],
-            storyNode: [NodeSchema]
+        7: {
+            isOpen: {
+                type: Boolean,
+                default: false
+            },
+            hasVisited: {
+                type: Boolean,
+                default: false
+            }
         },
-        node07: {
-            toggles: [NodeToggle],
-            storyNode: [NodeSchema]
+        8: {
+            isOpen: {
+                type: Boolean,
+                default: false
+            },
+            hasVisited: {
+                type: Boolean,
+                default: false
+            }
         },
-        node08: {
-            toggles: [NodeToggle],
-            storyNode: [NodeSchema]
+        9: {
+            isOpen: {
+                type: Boolean,
+                default: false
+            },
+            hasVisited: {
+                type: Boolean,
+                default: false
+            }
         },
-        node09: {
-            toggles: [NodeToggle],
-            storyNode: [NodeSchema]
+        10: {
+            isOpen: {
+                type: Boolean,
+                default: false
+            },
+            hasVisited: {
+                type: Boolean,
+                default: false
+            }
         },
-        node10: {
-            toggles: [NodeToggle],
-            storyNode: [NodeSchema]
+        11: {
+            isOpen: {
+                type: Boolean,
+                default: false
+            },
+            hasVisited: {
+                type: Boolean,
+                default: false
+            }
         },
-        node11: {
-            toggles: [NodeToggle],
-            storyNode: [NodeSchema]
+        12: {
+            isOpen: {
+                type: Boolean,
+                default: false
+            },
+            hasVisited: {
+                type: Boolean,
+                default: false
+            }
         },
-        node12: {
-            toggles: [NodeToggle],
-            storyNode: [NodeSchema]
+        13: {
+            isOpen: {
+                type: Boolean,
+                default: false
+            },
+            hasVisited: {
+                type: Boolean,
+                default: false
+            }
         },
-        node13: {
-            toggles: [NodeToggle],
-            storyNode: [NodeSchema]
+        14: {
+            isOpen: {
+                type: Boolean,
+                default: false
+            },
+            hasVisited: {
+                type: Boolean,
+                default: false
+            }
         },
-        node14: {
-            toggles: [NodeToggle],
-            storyNode: [NodeSchema]
+        15: {
+            isOpen: {
+                type: Boolean,
+                default: false
+            },
+            hasVisited: {
+                type: Boolean,
+                default: false
+            }
         },
-        node15: {
-            toggles: [NodeToggle],
-            storyNode: [NodeSchema]
+        16: {
+            isOpen: {
+                type: Boolean,
+                default: false
+            },
+            hasVisited: {
+                type: Boolean,
+                default: false
+            }
         },
-        node16: {
-            toggles: [NodeToggle],
-            storyNode: [NodeSchema]
+        17: {
+            isOpen: {
+                type: Boolean,
+                default: false
+            },
+            hasVisited: {
+                type: Boolean,
+                default: false
+            }
         },
-        node17: {
-            toggles: [NodeToggle],
-            storyNode: [NodeSchema]
+        18: {
+            isOpen: {
+                type: Boolean,
+                default: false
+            },
+            hasVisited: {
+                type: Boolean,
+                default: false
+            }
         },
-        node18: {
-            toggles: [NodeToggle],
-            storyNode: [NodeSchema]
+        19: {
+            isOpen: {
+                type: Boolean,
+                default: false
+            },
+            hasVisited: {
+                type: Boolean,
+                default: false
+            }
         },
-        node19: {
-            toggles: [NodeToggle],
-            storyNode: [NodeSchema]
+        20: {
+            isOpen: {
+                type: Boolean,
+                default: false
+            },
+            hasVisited: {
+                type: Boolean,
+                default: false
+            }
         },
-        node20: {
-            toggles: [NodeToggle],
-            storyNode: [NodeSchema]
-        },
-        node21: {
-            toggles: [NodeToggle],
-            storyNode: [NodeSchema]
-        },
+        21: {
+            isOpen: {
+                type: Boolean,
+                default: false
+            },
+            hasVisited: {
+                type: Boolean,
+                default: false
+            }
+        }
     }
 })
 

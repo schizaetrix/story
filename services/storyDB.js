@@ -10,7 +10,9 @@ const Stories = {
         key: 1,
         isDeath: false,
         isWin: false,
-        children: [ 2, 3 ]
+        children: [ 2, 3 ],
+        gchilds0: [ 4, 5 ],
+        gchilds1: [ 6, 7 ]
     },
     node02: {
         url: 'https://dl.dropboxusercontent.com/s/ginycdlbo5b8aky/Node1.jpg',
@@ -21,7 +23,9 @@ const Stories = {
         key: 2,
         isDeath: false,
         isWin: false,
-        children: [ 4, 5 ]
+        children: [ 4, 5 ],
+        gchilds0: [ 8, 9 ],
+        gchilds1: [ 0, 0 ]
     },
     node03: {
         url: 'https://dl.dropboxusercontent.com/s/ginycdlbo5b8aky/Node1.jpg',
@@ -32,7 +36,9 @@ const Stories = {
         key: 3,
         isDeath: false,
         isWin: false,
-        children: [ 6, 7 ]
+        children: [ 6, 7 ],
+        gchilds0: [ 10, 11 ],
+        gchilds1: [ 12, 13 ]
     },
     node04: {
         url: 'https://dl.dropboxusercontent.com/s/ginycdlbo5b8aky/Node1.jpg',
@@ -43,7 +49,9 @@ const Stories = {
         key: 4,
         isDeath: false,
         isWin: false,
-        children: [ 8, 9 ]
+        children: [ 8, 9 ],
+        gchilds0: [ 14, 15 ],
+        gchilds1: [ 0, 0 ]
     },
     node05: {
         url: 'https://raw.githubusercontent.com/schizaetrix/story/master/client/src/assets/images/dont-fall-neo.jpg',
@@ -65,7 +73,9 @@ const Stories = {
         key: 6,
         isDeath: false,
         isWin: false,
-        children: [ 10, 11 ]
+        children: [ 10, 11 ],
+        gchilds0: [ 16, 17 ],
+        gchilds1: [ 18, 19 ]
     },
     node07: {
         url: 'https://dl.dropboxusercontent.com/s/ginycdlbo5b8aky/Node1.jpg',
@@ -76,7 +86,9 @@ const Stories = {
         key: 7,
         isDeath: false,
         isWin: false,
-        children: [ 12, 13 ]
+        children: [ 12, 13 ],
+        gchilds0: [ 0, 0 ],
+        gchilds1: [ 20, 21 ]
     },
     node08: {
         url: 'https://dl.dropboxusercontent.com/s/ginycdlbo5b8aky/Node1.jpg',
@@ -87,7 +99,9 @@ const Stories = {
         key: 8,
         isDeath: false,
         isWin: false,
-        children: [ 14, 15 ]
+        children: [ 14, 15 ],
+        gchilds0: [ 0, 0 ],
+        gchilds1: [ 0, 0 ]
     },
     node09: {
         url: 'https://dl.dropboxusercontent.com/s/ginycdlbo5b8aky/Node1.jpg',
@@ -109,7 +123,9 @@ const Stories = {
         key: 10,
         isDeath: false,
         isWin: false,
-        children: [ 16, 17 ]
+        children: [ 16, 17 ],
+        gchilds0: [ 0, 0 ],
+        gchilds1: [ 0, 0 ]
     },
     node11: {
         url: 'https://raw.githubusercontent.com/schizaetrix/story/master/client/src/assets/images/dodging-bullets.jpg',
@@ -120,7 +136,9 @@ const Stories = {
         key: 11,
         isDeath: false,
         isWin: false,
-        children: [ 18, 19 ]
+        children: [ 18, 19 ],
+        gchilds0: [ 0, 0 ],
+        gchilds1: [ 0, 0 ]
     },
     node12: {
         url: 'https://dl.dropboxusercontent.com/s/ginycdlbo5b8aky/Node1.jpg',
@@ -142,7 +160,9 @@ const Stories = {
         key: 13,
         isDeath: false,
         isWin: false,
-        children: [ 20, 21 ]
+        children: [ 20, 21 ],
+        gchilds0: [ 0, 0 ],
+        gchilds1: [ 0, 0 ]
     },
     node14: {
         url: 'https://dl.dropboxusercontent.com/s/ginycdlbo5b8aky/Node1.jpg',

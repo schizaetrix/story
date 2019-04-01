@@ -7,7 +7,7 @@ class NodeRow0 extends Component {
         return (
             <div className="col s12 node-col node">
                 <img 
-                    className="z-depth-3"
+                    className='z-depth-3'
                     src={this.props.image}
                     alt={this.props.text}
                     style={{ 

@@ -20,6 +20,12 @@ class StoryTree extends Component {
         }
         M.ScrollSpy.init(scrollspy, options)
     }
+    componentDidUpdate (prevProps, prevState) {
+        if (prevProps !== this.props) {
+            this.scrollspyPlayer1()
+            this.scrollspyPlayer2()
+        }
+    }
     renderNewStoryBtn () {
         return (
             <div className="fixed-action-btn">

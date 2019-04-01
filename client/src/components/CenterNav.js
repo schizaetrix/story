@@ -60,7 +60,7 @@ class CenterNav extends Component {
                     >
                         <h6>{this.renderPlayerOne()}</h6>
                     </li>
-                    <li key="2" style={{ margin: '3px 15px' }}>
+                    <li key="2">
                         {this.renderCredits()}
                     </li>
                     <li key="3" style={{ margin: '3% 35px' }}>
