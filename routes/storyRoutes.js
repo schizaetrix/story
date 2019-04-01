@@ -1,5 +1,6 @@
 // -------------------------------------------------
 const mongoose = require('mongoose')
+const { Path } = require('path-parser')
 // -------------------------------------------------
 const Node = mongoose.model('nodes')                            // Fix: mongoose may throw up errors during testing if a model file is required in multiple times. Requiring models in this way avoids that issue
 const User = mongoose.model('users')
@@ -42,7 +43,7 @@ module.exports = (app) => {
         '/api/tree',
         requireLogin,
         async (req, res) => {
-            const tree = await Tree.find({                  // Todo: pick back up here tomorrow
+            const tree = await Tree.find({
                 $or: [
                     { 'playerOne.player': {
                         $elemMatch: {
@@ -116,27 +117,39 @@ module.exports = (app) => {
 
     app.get(
         '/api/nodes/:treeId/:nodeId/:nodeKey/:chosen/:gchild1/:gchild2/path',
-        (req, res) => {                                         // Todo: this needs to be reconfigured as the score page that redirects the user back to their email for the next step in the story. Here is where we would set up logic to remove lives, calculate score, etc...
-            res.send('This is a normal path')                   // Note: remember, you can use res.redirect() here to send to a client-side route.           
+        (req, res) => {
+            const path = new Path('/api/nodes/:treeId/:nodeId/:nodeKey/:chosen/:gchild1/:gchild2/path')
+            const match = path.test(req.originalUrl)
+            if (match) {
+                res.redirect(`/story/${match.chosen}/path`)
+            }
         }
     )
 
     app.get(
         '/api/nodes/:treeId/:nodeId/:key/:chosen/death',
         (req, res) => {
-            res.send("You have died! Try again with a previous email. Don't forget to check out your storyTree to help you decide your next path!" )
+            const path = new Path('/api/nodes/:treeId/:nodeId/:key/:chosen/death')
+            const match = path.test(req.originalUrl)
+            if (match) {
+                res.redirect(`/story/${match.chosen}/death`)
+            }
         }
     )
 
     app.get(
         '/api/nodes/:treeId/:nodeId/:key/:chosen/win',
         (req, res) => {
-            res.send("You've survived the Matrix! You still have some time before your opponent reaches their finish line. Go back and try some more paths and rack up more points!")
+            const path = new Path('/api/nodes/:treeId/:nodeId/:key/:chosen/win')
+            const match = path.test(req.originalUrl)
+            if (match) {
+                res.redirect(`/story/${match.chosen}/win`)
+            }
         }
     )
 
     app.post(
-        '/api/nodes/webhooks',                                  // Todo: create a de-duplication model to filter webhook events before they ever go to the path parser middlewares
+        '/api/nodes/webhooks',                                  // Done: create a de-duplication model to filter webhook events before they ever go to the path parser middlewares
         async (req, res, next) => {
             const existingWebhook = await Webhook.findOne({
                 sgEventId: req.body[0].sg_event_id

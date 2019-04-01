@@ -14,7 +14,7 @@ const Stories = {
         gchilds1: [ 6, 7 ]
     },
     node02: {
-        url: 'https://dl.dropboxusercontent.com/s/ginycdlbo5b8aky/Node1.jpg',
+        url: 'https://raw.githubusercontent.com/schizaetrix/story/master/client/src/assets/images/white-rabbit.jpg',
         title: 'Node 2 title',
         subject: 'Node 2 subject',
         body: 'Node 2 body',
@@ -26,7 +26,7 @@ const Stories = {
         gchilds1: [ 0, 0 ]
     },
     node03: {
-        url: 'https://dl.dropboxusercontent.com/s/ginycdlbo5b8aky/Node1.jpg',
+        url: 'https://raw.githubusercontent.com/schizaetrix/story/master/client/src/assets/images/red-pill-blue-pill.jpg',
         // image: Node3,
         title: 'Node 3 title',
         subject: 'Node 3 subject',
@@ -39,7 +39,7 @@ const Stories = {
         gchilds1: [ 12, 13 ]
     },
     node04: {
-        url: 'https://dl.dropboxusercontent.com/s/ginycdlbo5b8aky/Node1.jpg',
+        url: 'https://raw.githubusercontent.com/schizaetrix/story/master/client/src/assets/images/the-real-world.jpg',
         // image: Node4,
         title: 'Node 4 title',
         subject: 'Node 4 subject',
@@ -63,7 +63,7 @@ const Stories = {
         children: [ null ]
     },
     node06: {
-        url: 'https://dl.dropboxusercontent.com/s/ginycdlbo5b8aky/Node1.jpg',
+        url: 'https://raw.githubusercontent.com/schizaetrix/story/master/client/src/assets/images/through-the-mirror.jpg',
         // image: Node6,
         title: 'Node 6 title',
         subject: 'Node 6 subject',
@@ -76,7 +76,7 @@ const Stories = {
         gchilds1: [ 18, 19 ]
     },
     node07: {
-        url: 'https://dl.dropboxusercontent.com/s/ginycdlbo5b8aky/Node1.jpg',
+        url: 'https://raw.githubusercontent.com/schizaetrix/story/master/client/src/assets/images/meet-trinity.jpg',
         // image: Node7,
         title: 'Node 7 title',
         subject: 'Node 7 subject',
@@ -89,7 +89,7 @@ const Stories = {
         gchilds1: [ 20, 21 ]
     },
     node08: {
-        url: 'https://dl.dropboxusercontent.com/s/ginycdlbo5b8aky/Node1.jpg',
+        url: 'https://raw.githubusercontent.com/schizaetrix/story/master/client/src/assets/images/dont-fall-neo.jpg',
         // image: Node8,
         title: 'Node 8 title',
         subject: 'Node 8 subject',
@@ -102,7 +102,7 @@ const Stories = {
         gchilds1: [ 0, 0 ]
     },
     node09: {
-        url: 'https://dl.dropboxusercontent.com/s/ginycdlbo5b8aky/Node1.jpg',
+        url: 'https://raw.githubusercontent.com/schizaetrix/story/master/client/src/assets/images/end-of-the-line.jpg',
         // image: Node9,
         title: 'Node 9 title',
         subject: 'Node 9 subject',
@@ -113,7 +113,7 @@ const Stories = {
         children: [ null ]
     },
     node10: {
-        url: 'https://dl.dropboxusercontent.com/s/ginycdlbo5b8aky/Node1.jpg',
+        url: 'https://raw.githubusercontent.com/schizaetrix/story/master/client/src/assets/images/i-know-kung-fu.jpg',
         // image: Node10,
         title: 'Node 10 title',
         subject: 'Node 10 subject',
@@ -139,7 +139,7 @@ const Stories = {
         gchilds1: [ 0, 0 ]
     },
     node12: {
-        url: 'https://dl.dropboxusercontent.com/s/ginycdlbo5b8aky/Node1.jpg',
+        url: 'https://raw.githubusercontent.com/schizaetrix/story/master/client/src/assets/images/here-take-a-cookie.jpg',
         // image: Node12,
         title: 'Node 12 title',
         subject: 'Node 12 subject',
@@ -150,7 +150,7 @@ const Stories = {
         children: [ null ]
     },
     node13: {
-        url: 'https://dl.dropboxusercontent.com/s/ginycdlbo5b8aky/Node1.jpg',
+        url: 'https://raw.githubusercontent.com/schizaetrix/story/master/client/src/assets/images/there-is-no-spoon.jpg',
         // image: Node13,
         title: 'Node 13 title',
         subject: 'Node 13 subject',
@@ -163,7 +163,7 @@ const Stories = {
         gchilds1: [ 0, 0 ]
     },
     node14: {
-        url: 'https://dl.dropboxusercontent.com/s/ginycdlbo5b8aky/Node1.jpg',
+        url: 'https://raw.githubusercontent.com/schizaetrix/story/master/client/src/assets/images/sleeping-beauty.jpg',
         // image: Node14,
         title: 'Node 14 title',
         subject: 'Node 14 subject',
@@ -174,7 +174,7 @@ const Stories = {
         children: [ null ]
     },
     node15: {
-        url: 'https://dl.dropboxusercontent.com/s/ginycdlbo5b8aky/Node1.jpg',
+        url: 'https://raw.githubusercontent.com/schizaetrix/story/master/client/src/assets/images/stopping-bullets.jpg',
         // image: Node15,
         title: 'Node 15 title',
         subject: 'Node 15 subject',
@@ -185,7 +185,7 @@ const Stories = {
         children: [ null ]
     },
     node16: {
-        url: 'https://dl.dropboxusercontent.com/s/ginycdlbo5b8aky/Node1.jpg',
+        url: 'https://raw.githubusercontent.com/schizaetrix/story/master/client/src/assets/images/system-failure.jpg',
         // image: Node16,
         title: 'Node 16 title',
         subject: 'Node 16 subject',
@@ -196,7 +196,7 @@ const Stories = {
         children: [ null ]
     },
     node17: {
-        url: 'https://dl.dropboxusercontent.com/s/ginycdlbo5b8aky/Node1.jpg',
+        url: 'https://raw.githubusercontent.com/schizaetrix/story/master/client/src/assets/images/grey-goo.jpg',
         // image: Node17,
         title: 'Node 17 title',
         subject: 'Node 17 subject',
@@ -207,7 +207,7 @@ const Stories = {
         children: [ null ]
     },
     node18: {
-        url: 'https://dl.dropboxusercontent.com/s/ginycdlbo5b8aky/Node1.jpg',
+        url: 'https://raw.githubusercontent.com/schizaetrix/story/master/client/src/assets/images/my-name-is-neo.jpg',
         // image: Node18,
         title: 'Node 18 title',
         subject: 'Node 18 subject',
@@ -229,7 +229,7 @@ const Stories = {
         children: [ null ]
     },
     node20: {
-        url: 'https://dl.dropboxusercontent.com/s/ginycdlbo5b8aky/Node1.jpg',
+        url: 'https://raw.githubusercontent.com/schizaetrix/story/master/client/src/assets/images/worst-dream-ever.jpg',
         // image: Node20,
         title: 'Node 20 title',
         subject: 'Node 20 subject',
