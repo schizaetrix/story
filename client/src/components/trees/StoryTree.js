@@ -20,7 +20,7 @@ class StoryTree extends Component {
         }
         M.ScrollSpy.init(scrollspy, options)
     }
-    componentDidUpdate (prevProps, prevState) {
+    componentDidUpdate (prevProps) {
         if (prevProps !== this.props) {
             this.scrollspyPlayer1()
             this.scrollspyPlayer2()

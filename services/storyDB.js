@@ -2,8 +2,7 @@
 
 const Stories = {
     node01: {
-        url: 'https://dl.dropboxusercontent.com/s/ginycdlbo5b8aky/Node1.jpg',
-        // image: Node1,
+        url: 'https://raw.githubusercontent.com/schizaetrix/story/master/client/src/assets/images/red-pill-blue-pill.jpg',
         title: 'Node 1 title',
         subject: 'Node 1 subject',
         body: 'Node 1 body',
@@ -16,7 +15,6 @@ const Stories = {
     },
     node02: {
         url: 'https://dl.dropboxusercontent.com/s/ginycdlbo5b8aky/Node1.jpg',
-        // image: Node2,
         title: 'Node 2 title',
         subject: 'Node 2 subject',
         body: 'Node 2 body',

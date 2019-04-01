@@ -7,7 +7,9 @@ class NodeRow3 extends Component {
         return (
             <div className="col s2 node-col node">
                 <img 
-                    className="z-depth-3"
+                    className={`z-depth-3 scale-transition 
+                        ${ this.props.classState ? 'scale-in' : 'scale-out' }
+                    `}
                     src={this.props.image}
                     alt={this.props.text}
                     style={{ 

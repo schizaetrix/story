@@ -24,41 +24,46 @@ class TreePlayerOne extends Component {
         this.props.fetchTree()
     }
     renderRow2 () {
-        return _.map(row2Props, ({ text, image }) => {
+        var props = this.props.tree
+        return _.map(row2Props, ({ text, image, key }) => {
             return (
                 <NodeRow2 
                     text={text}
-                    key={text}
+                    key={key}
                     image={image}
+                    classState={props ? props.playerOne[key].hasVisited : false}
                 />
             )
         })
     }
     renderRow3 () {
-        return _.map(row3Props, ({ text, image }) => {
+        var props = this.props.tree
+        return _.map(row3Props, ({ text, image, key }) => {
             return (
                 <NodeRow3 
                     text={text}
-                    key={text}
+                    key={key}
                     image={image}
+                    classState={props ? props.playerOne[key].hasVisited : false}
                 />
             )
         })
     }
     renderRow4 () {
-        return _.map(row4Props, ({ text, image }) => {
+        var props = this.props.tree
+        return _.map(row4Props, ({ text, image, key }) => {
             return (
                 <NodeRow4 
                     text={text}
-                    key={text}
+                    key={key}
                     image={image}
+                    classState={props ? props.playerOne[key].hasVisited : false}
                 />
             )
         })
     }
     render () {
         var props = this.props.tree
-        props ? console.log(props.playerOne[1].isOpen) : console.log(props)
         return (
             <div 
                 className="container" 
@@ -78,13 +83,13 @@ class TreePlayerOne extends Component {
                     image={nodeProps[1].image}
                     text={nodeProps[1].text}
                     key={nodeProps[1].text}
-                    classState={props ? props.playerOne[1].isOpen : props}
+                    classState={props ? props.playerOne[2].hasVisited : false}
                 />
                 <NodeRow1 
                     image={nodeProps[2].image}
                     text={nodeProps[2].text}
                     key={nodeProps[2].text}
-                    classState={props ? props.playerOne[1].isOpen : props}
+                    classState={props ? props.playerOne[3].hasVisited : false}
                 />
             </div>
             <div className="row">
@@ -92,6 +97,7 @@ class TreePlayerOne extends Component {
                     image={nodeProps[0].image}
                     text={nodeProps[0].text}
                     key={nodeProps[0].text}
+                    classState={props ? props.playerOne[1].hasVisited : false}
                 />
             </div>
         </div>

@@ -22,43 +22,52 @@ class TreePlayerTwo extends Component {
     componentDidMount () {
         this.props.fetchNodes()
         this.props.fetchTree()
+        this.interval = setInterval(this.props.fetchTree, 10000)
+    }
+    componentWillUnmount () {
+        clearInterval(this.interval)
     }
     renderRow2 () {
-        return _.map(row2Props, ({ text, image }) => {
+        var props = this.props.tree
+        return _.map(row2Props, ({ text, image, key }) => {
             return (
                 <NodeRow2 
                     text={text}
                     image={image}
-                    key={text}
+                    key={key}
+                    classState={props ? props.playerTwo[key].hasVisited : false}
                 />
             )
         }).reverse()
     }
     renderRow3 () {
-        return _.map(row3Props, ({ text, image }) => {
+        var props = this.props.tree
+        return _.map(row3Props, ({ text, image, key }) => {
             return (
                 <NodeRow3 
                     text={text}
                     image={image}
-                    key={text}
+                    key={key}
+                    classState={props ? props.playerTwo[key].hasVisited : false}
                 />
             )
         }).reverse()
     }
     renderRow4 () {
-        return _.map(row4Props, ({ text, image }) => {
+        var props = this.props.tree
+        return _.map(row4Props, ({ text, image, key }) => {
             return (
                 <NodeRow4 
                     text={text}
                     image={image}
-                    key={text}
+                    key={key}
+                    classState={props ? props.playerTwo[key].hasVisited : false}
                 />
             )
         }).reverse()
     }
     render () {
         var props = this.props.tree
-        props ? console.log(props.playerOne[1].isOpen) : console.log(props)
         return (
             <div 
                 className="container" 
@@ -68,21 +77,22 @@ class TreePlayerTwo extends Component {
                     <NodeRow0 
                         image={nodeProps[0].image}
                         text={nodeProps[0].text}
-                        key={nodeProps[0].text}
+                        key={nodeProps[0].key}
+                        classState={props ? props.playerTwo[1].hasVisited : false}
                     />
                 </div>
                 <div className="row"  style={{ marginBottom: '40px' }}>
                     <NodeRow1 
                         image={nodeProps[2].image}
                         text={nodeProps[2].text}
-                        key={nodeProps[2].text}
-                        classState={props ? props.playerOne[1].isOpen : props}
+                        key={nodeProps[2].key}
+                        classState={props ? props.playerTwo[3].hasVisited : false}
                     />
                     <NodeRow1 
                         image={nodeProps[1].image}
                         text={nodeProps[1].text}
-                        key={nodeProps[1].text}
-                        classState={props ? props.playerOne[1].isOpen : props}
+                        key={nodeProps[1].key}
+                        classState={props ? props.playerTwo[2].hasVisited : false}
                     />
                 </div>
                 <div className="row">
