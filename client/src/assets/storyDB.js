@@ -37,7 +37,7 @@ const Stories = {
         gchilds1: [ 6, 7 ]
     },
     node02: {
-        url: 'https://dl.dropboxusercontent.com/s/ginycdlbo5b8aky/Node1.jpg',
+        url: 'https://raw.githubusercontent.com/schizaetrix/story/master/client/src/assets/images/white-rabbit.jpg',
         image: Node2,
         title: 'Node 2 title',
         subject: 'Node 2 subject',

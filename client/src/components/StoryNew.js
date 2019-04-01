@@ -46,7 +46,7 @@ class StoryNew extends Component {
                     Cancel
                 </Link>
                 <Link 
-                    to="/storytree"
+                    to="/storynew/confirmation"
                     onClick={() => this.props.handleSubmit(
                         this.props.storyStart(email)
                     )}

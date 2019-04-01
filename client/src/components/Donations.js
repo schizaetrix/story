@@ -22,7 +22,7 @@ class Donations extends Component {
                         darken-2 black-text"
                     id="credits-button"
                 >
-                    {this.props.credits} Credits Left!
+                    Credits: {this.props.credits}
                 </button>
             </StripeCheckout>
         )

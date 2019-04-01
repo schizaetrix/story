@@ -1,51 +1,30 @@
 // -------------------------------------------------
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Link } from 'react-router-dom'
 import M from 'materialize-css'
 // -------------------------------------------------
+import { fetchTree } from '../../actions'
 import Matrix from '../../assets/images/matrix.jpg'
 import TreePlayerOne from './TreePlayerOne'
 import TreePlayerTwo from './TreePlayerTwo'
-import CenterNav from '../CenterNav';
+import CenterNav from '../CenterNav'
+import NewStoryBtn from '../NewStoryBtn'
 // -------------------------------------------------
 
 class StoryTree extends Component {
     componentDidMount () {
-        const parallax = document.querySelectorAll('.parallax')
-        M.Parallax.init(parallax, {});
         const scrollspy = document.querySelectorAll('.scrollspy')
         const options = {
             scrollOffset: 75
         }
         M.ScrollSpy.init(scrollspy, options)
-    }
-    componentDidUpdate (prevProps) {
-        if (prevProps !== this.props) {
-            this.scrollspyPlayer1()
-            this.scrollspyPlayer2()
-        }
-    }
-    renderNewStoryBtn () {
-        return (
-            <div className="fixed-action-btn">
-                <Link 
-                    className="
-                        btn-floating btn-large
-                        light-green darken-2"
-                    id="new-story-tree"
-                    to="/storynew"
-                >
-                    <i className="material-icons black-text">
-                        add
-                    </i>
-                </Link>
-            </div>
-        )
+        const parallax = document.querySelectorAll('.parallax')
+        M.Parallax.init(parallax, {})
+        this.props.fetchTree()
     }
     scrollspyPlayer1 () {
-        switch (this.props.node) {
-            case undefined:
+        switch (this.props.tree) {
+        case undefined:
                 return (
                     <li key="a">
                         <a href="#tree-one"  className="active">
@@ -57,8 +36,8 @@ class StoryTree extends Component {
                 return (
                     <li key="a">    
                         <a href="#tree-one" className="active">
-                            {this.props.node.playerOne[0] ? 
-                                this.props.node.playerOne[0].userName :
+                            {this.props.tree.playerOne ? 
+                                this.props.tree.playerOne.player[0].userName :
                                 'Player 1'
                             }
                         </a>
@@ -67,7 +46,7 @@ class StoryTree extends Component {
         }
     }
     scrollspyPlayer2 () {
-        switch (this.props.node) {
+        switch (this.props.tree) {
             case undefined:
                 return (
                     <li key="b">
@@ -80,8 +59,8 @@ class StoryTree extends Component {
                 return (
                     <li key="b">    
                         <a href="#tree-two">
-                            {this.props.node.playerTwo[0] ? 
-                                this.props.node.playerTwo[0].userName :
+                            {this.props.tree.playerTwo ? 
+                                this.props.tree.playerTwo.player[0].userName :
                                 'Player 2'
                             }
                         </a>
@@ -129,18 +108,22 @@ class StoryTree extends Component {
                         </div>
                     </div>
                 </div>
-                {this.renderNewStoryBtn()}
+                <NewStoryBtn />
             </div>
         )
     }
 }
 
 // -------------------------------------------------
-function mapStateToProps ({ nodes }) {
-    return { node: nodes[0] }
+function mapStateToProps ({ auth, tree }) {
+    return {
+        auth,
+        tree: tree[0]
+    }
 }
 // -------------------------------------------------
 export default connect(
-    mapStateToProps
+    mapStateToProps,
+    { fetchTree }
 )(StoryTree)
 // -------------------------------------------------

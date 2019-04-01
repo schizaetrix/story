@@ -46,6 +46,7 @@ a {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    text-align: center;
     height: 100vh
 }
 .modal-overlay {
@@ -101,16 +102,17 @@ input[type=email]:not(.browser-default):focus {
 #credits-button {
     position: relative;
     z-index: 100;
-    margin-top: 11.5px;
+    margin-top: 10px;
     font-size: 1.2rem
 
 }
-#new-story-tree {
+.new-story-tree {
     position: fixed;
     bottom: 4%;
     left: 94%;
+    transition: transform 0.2s;
 }
-#new-story-tree:hover {
-    transition: transform 0.1s;
-    transform: scale(1.05)
+.new-story-tree:hover {
+    transition: transform 0.2s;
+    transform: scale(1.02)
 }

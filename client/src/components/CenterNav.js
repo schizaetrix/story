@@ -2,10 +2,14 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 // -------------------------------------------------
+import { fetchTree } from '../actions'
 import Donations from './Donations'
 // -------------------------------------------------
 
 class CenterNav extends Component {
+    componentDidMount () {
+        this.props.fetchTree()
+    }
     renderCredits () {
         switch (this.props.auth) {
             case null:
@@ -19,27 +23,43 @@ class CenterNav extends Component {
         }
     }
     renderPlayerOne () {                                       // Fix: adding anything else to the center section renders everything in a single column. Attempting to separate them into columns messes up the parallax on the bottom half of the screen.
-        switch (this.props.node) {
+        switch (this.props.tree) {
             case undefined:
                 return 'Welcome, Player 1!'
             default:
-                return `Welcome, ${
-                    this.props.node.playerOne[0] ? 
-                    this.props.node.playerOne[0].userName : 
+                return `PLAYER 1: ${
+                    this.props.tree.playerOne ? 
+                    this.props.tree.playerOne.player[0].userName : 
                     'Player 1'
-                }!`
+                }  \u00A0\u00A0\u00A0\u00A0\u00A0 SCORE: ${
+                    this.props.tree.playerOne ? 
+                    this.props.tree.playerOne.player[0].score :
+                    '0' 
+                }   \u00A0\u00A0\u00A0\u00A0\u00A0 LIVES: ${
+                    this.props.tree.playerOne ? 
+                    this.props.tree.playerOne.player[0].lives :
+                    '0' 
+                }`
         }
     }
     renderPlayerTwo () {
-        switch (this.props.node) {
+        switch (this.props.tree) {
             case undefined:
                 return 'Welcome, Player 2!'
             default:
-                return `Welcome, ${
-                    this.props.node.playerTwo[0] ? 
-                    this.props.node.playerTwo[0].userName : 
-                    'Player 2'
-                }!`
+                return `PLAYER 2: ${
+                    this.props.tree.playerTwo ? 
+                    this.props.tree.playerTwo.player[0].userName : 
+                    'Player 1'
+                }  \u00A0\u00A0\u00A0\u00A0\u00A0 SCORE: ${
+                    this.props.tree.playerTwo ? 
+                    this.props.tree.playerTwo.player[0].score :
+                    '0' 
+                }   \u00A0\u00A0\u00A0\u00A0\u00A0 LIVES: ${
+                    this.props.tree.playerTwo ? 
+                    this.props.tree.playerTwo.player[0].lives :
+                    '0' 
+                }`
         }
     }
     render () {
@@ -56,14 +76,13 @@ class CenterNav extends Component {
             >
                 <ul>
                     <li
-                        key="1" style={{ margin: '3% 35px' }}
-                    >
+                        key="1" style={{ margin: '2% 30px' }}>
                         <h6>{this.renderPlayerOne()}</h6>
                     </li>
-                    <li key="2">
+                    <li key="2" style={{ paddingBottom: '10%' }}>
                         {this.renderCredits()}
                     </li>
-                    <li key="3" style={{ margin: '3% 35px' }}>
+                    <li key="3" style={{ margin: '2% 30px' }}>
                         <h6>{this.renderPlayerTwo()}</h6>
                     </li>
                 </ul>
@@ -73,15 +92,16 @@ class CenterNav extends Component {
 }
 
 // -------------------------------------------------
-function mapStateToProps ({ auth, nodes }) {
+function mapStateToProps ({ auth, tree, }) {
     return { 
         auth,
-        node: nodes[0]
+        tree: tree[0]
     }
 }
 // -------------------------------------------------
 export default connect(
-    mapStateToProps
+    mapStateToProps,
+    { fetchTree }
 )(CenterNav)
 // -------------------------------------------------
 

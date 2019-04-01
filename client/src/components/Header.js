@@ -30,7 +30,7 @@ class Header extends Component {
     render () {
         return (
             <nav 
-                className="transparent z-depth-0"
+                className="transparent z-depth-0 hide-on hide-on-small-only"
                 style={{ position: 'fixed', zIndex: '100' }}
             >
                 <div 

@@ -106,9 +106,8 @@ class TreePlayerOne extends Component {
 }
 
 // -------------------------------------------------
-function mapStateToProps ({ nodes, tree }) {
+function mapStateToProps ({ tree }) {
     return {
-        nodes,
         tree: tree[0]
     }
 }

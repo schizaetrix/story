@@ -1,7 +1,6 @@
 // -------------------------------------------------
 import axios from 'axios'
 // -------------------------------------------------
-import history from '../history'
 import { 
     FETCH_USER, 
     FETCH_NODES,
@@ -65,8 +64,6 @@ export const storyStart = (formValues) => async (dispatch, getState) => {
         type: FETCH_USER,
         payload: res.data
     })
-
-    history.push('/storytree')
 }
 
 // -------------------------------------------------

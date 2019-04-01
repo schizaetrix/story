@@ -9,6 +9,10 @@ import Header from './Header'
 import Landing from './Landing'
 import StoryTree from './trees/StoryTree'
 import StoryNew from './StoryNew'
+import Confirmation from './Confirmation'
+import PathLanding from './stories/PathLanding'
+import DeathLanding from './stories/DeathLanding'
+import WinLanding from './stories/WinLanding'
 import history from '../history'
 // -------------------------------------------------
 
@@ -34,6 +38,22 @@ class App extends Component {
                             <Route 
                                 path='/storynew' exact
                                 component={StoryNew} 
+                            />
+                            <Route 
+                                path='/storynew/confirmation' exact
+                                component={Confirmation} 
+                            />
+                            <Route 
+                                path='/story/:chosen/path' exact
+                                component={PathLanding} 
+                            />
+                            <Route 
+                                path='/story/:chosen/death' exact
+                                component={DeathLanding} 
+                            />
+                            <Route 
+                                path='/story/:chosen/win' exact
+                                component={WinLanding} 
                             />
                         </Switch>
                     </div>
