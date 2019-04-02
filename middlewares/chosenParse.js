@@ -34,7 +34,7 @@ const chosenParse = async (req, res) => {
         })
         .compact()
         .uniqBy('email', 'nodeId')
-        .each(async ({ treeId, nodeId, nodeKey, email, chosen, gchild1, gchild2 }) => {
+        .each(async ({ treeId, nodeId, email, chosen, gchild1, gchild2 }) => {
             const treeFind = await Tree.findOne({
                 treeSession: treeId
             })

@@ -3,7 +3,7 @@ import _ from 'lodash'
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 // -------------------------------------------------
-import { fetchNodes, fetchTree } from '../../actions'
+import { fetchTree } from '../../actions'
 import nodeProps, {
     row2Props, row3Props, row4Props
 } from '../nodes/nodeProps'
@@ -12,16 +12,41 @@ import NodeRow1 from '../nodes/NodeRow1'
 import NodeRow2 from '../nodes/NodeRow2'
 import NodeRow3 from '../nodes/NodeRow3'
 import NodeRow4 from '../nodes/NodeRow4'
-import player1TreeState from './player1TreeState'
 // -------------------------------------------------
 
 class TreePlayerOne extends Component {
-    state = {
-        player1TreeState
-    }
     componentDidMount () {
-        this.props.fetchNodes()
         this.props.fetchTree()
+    }
+    renderRow0 () {
+        var props = this.props.tree
+        return (
+            <NodeRow0
+                image={nodeProps[0].image}
+                text={nodeProps[0].text}
+                key={nodeProps[0].text}
+                classState={props ? props.playerOne[1].hasVisited : false}
+            />
+        )
+    }
+    renderRow1 () {
+        var props = this.props.tree
+        return (
+            <React.Fragment>
+                <NodeRow1 
+                    image={nodeProps[1].image}
+                    text={nodeProps[1].text}
+                    key={nodeProps[1].text}
+                    classState={props ? props.playerOne[2].hasVisited : false}
+                />
+                <NodeRow1 
+                    image={nodeProps[2].image}
+                    text={nodeProps[2].text}
+                    key={nodeProps[2].text}
+                    classState={props ? props.playerOne[3].hasVisited : false}
+                />
+            </React.Fragment>
+        )
     }
     renderRow2 () {
         var props = this.props.tree
@@ -62,12 +87,72 @@ class TreePlayerOne extends Component {
             )
         })
     }
+    renderGameOver () {
+        var game = this.props.tree
+        var playerOneLives = 
+            game && game.playerOne ? game.playerOne.player[0].lives : undefined
+        var playerTwoLives = 
+            game && game.playerTwo ? game.playerTwo.player[0].lives : undefined
+
+        if (playerOneLives <= 0) {
+            return (
+                <h1 
+                    className="light-green-text text-darken-3"
+                    style={{
+                        textShadow: '2px 2px 1px #000',
+                        position: 'absolute',
+                        top: '50%',
+                        left: '50%',
+                        transform: 'translate(-50%, -50%)'
+                    }}
+                >
+                    <span 
+                        style={{
+                            backgroundColor: '#fff',
+                            boxShadow: '0 0 5px 10px #fff',
+                            borderRadius: '10px',
+                            opacity: '0.75'
+                        }}
+                    >
+                        {`${game.playerOne.player[0].userName} lost :(`}
+                    </span>
+                </h1>
+            )
+        } else if (playerTwoLives <= 0) {
+            return (
+                <h1 
+                    className="light-green-text text-darken-3"
+                    style={{
+                        textShadow: '2px 2px 1px #000',
+                        position: 'absolute',
+                        top: '50%',
+                        left: '50%',
+                        transform: 'translate(-50%, -50%)'
+                    }}
+                >
+                    <span 
+                        style={{
+                            backgroundColor: '#fff',
+                            boxShadow: '0 0 5px 10px #fff',
+                            borderRadius: '10px',
+                            opacity: '0.75'
+                        }}
+                    >
+                        {`${game.playerOne.player[0].userName} won!!`}
+                    </span>
+                </h1>
+            )
+        } else { return }
+    }
     render () {
-        var props = this.props.tree
         return (
             <div 
                 className="container" 
-                style={{ width: '100vw' }}
+                style={{ 
+                    width: '100vw',
+                    position: 'relative',
+                    textAlign: 'center'
+                }}
             >
             <div className="row">
                 {this.renderRow4()}
@@ -79,27 +164,12 @@ class TreePlayerOne extends Component {
                 {this.renderRow2()}
             </div>
             <div className="row" style={{ marginTop: '40px' }}>
-                <NodeRow1 
-                    image={nodeProps[1].image}
-                    text={nodeProps[1].text}
-                    key={nodeProps[1].text}
-                    classState={props ? props.playerOne[2].hasVisited : false}
-                />
-                <NodeRow1 
-                    image={nodeProps[2].image}
-                    text={nodeProps[2].text}
-                    key={nodeProps[2].text}
-                    classState={props ? props.playerOne[3].hasVisited : false}
-                />
+                {this.renderRow1()}
             </div>
             <div className="row">
-                <NodeRow0
-                    image={nodeProps[0].image}
-                    text={nodeProps[0].text}
-                    key={nodeProps[0].text}
-                    classState={props ? props.playerOne[1].hasVisited : false}
-                />
+                {this.renderRow0()}
             </div>
+            {this.renderGameOver()}
         </div>
         )
     }
@@ -114,6 +184,6 @@ function mapStateToProps ({ tree }) {
 // -------------------------------------------------
 export default connect(
     mapStateToProps,
-    { fetchNodes, fetchTree }
+    { fetchTree }
 )(TreePlayerOne)
 // -------------------------------------------------

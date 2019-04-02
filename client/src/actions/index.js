@@ -66,4 +66,12 @@ export const storyStart = (formValues) => async (dispatch, getState) => {
     })
 }
 
+export const gameOver = (treeId) => async (dispatch) => {
+    await axios.delete(`/api/tree/${treeId}/delete`)
+    dispatch({
+        type: FETCH_TREE,
+        payload: treeId
+    })
+}
+
 // -------------------------------------------------

@@ -3,7 +3,7 @@ import _ from 'lodash'
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 // -------------------------------------------------
-import { fetchNodes, fetchTree } from '../../actions'
+import { fetchTree } from '../../actions'
 import nodeProps, {
     row2Props, row3Props, row4Props
 } from '../nodes/nodeProps'
@@ -12,20 +12,41 @@ import NodeRow1 from '../nodes/NodeRow1'
 import NodeRow2 from '../nodes/NodeRow2'
 import NodeRow3 from '../nodes/NodeRow3'
 import NodeRow4 from '../nodes/NodeRow4'
-import player2TreeState from './player2TreeState'
 // -------------------------------------------------
 
 class TreePlayerTwo extends Component {
-    state = {
-        player2TreeState
-    }
     componentDidMount () {
-        this.props.fetchNodes()
         this.props.fetchTree()
-        this.interval = setInterval(this.props.fetchTree, 10000)
     }
-    componentWillUnmount () {
-        clearInterval(this.interval)
+    renderRow0 () {
+        var props = this.props.tree
+        return (
+            <NodeRow0 
+                image={nodeProps[0].image}
+                text={nodeProps[0].text}
+                key={nodeProps[0].key}
+                classState={props ? props.playerTwo[1].hasVisited : false}
+            />
+        )
+    }
+    renderRow1 () {
+        var props = this.props.tree
+        return (
+            <React.Fragment>
+                <NodeRow1 
+                    image={nodeProps[2].image}
+                    text={nodeProps[2].text}
+                    key={nodeProps[2].key}
+                    classState={props ? props.playerTwo[3].hasVisited : false}
+                />
+                <NodeRow1 
+                    image={nodeProps[1].image}
+                    text={nodeProps[1].text}
+                    key={nodeProps[1].key}
+                    classState={props ? props.playerTwo[2].hasVisited : false}
+                />
+            </React.Fragment>
+        )
     }
     renderRow2 () {
         var props = this.props.tree
@@ -66,34 +87,74 @@ class TreePlayerTwo extends Component {
             )
         }).reverse()
     }
+    renderGameOver () {
+        var game = this.props.tree
+        var playerOneLives = 
+            game && game.playerOne ? game.playerOne.player[0].lives : undefined
+        var playerTwoLives = 
+            game && game.playerTwo ? game.playerTwo.player[0].lives : undefined
+
+        if (playerTwoLives <= 0) {
+            return (
+                <h1 
+                    className="light-green-text text-darken-3"
+                    style={{
+                        textShadow: '2px 2px 1px #000',
+                        position: 'absolute',
+                        top: '50%',
+                        left: '50%',
+                        transform: 'translate(-50%, -50%)'
+                    }}
+                >
+                    <span 
+                        style={{
+                            backgroundColor: '#fff',
+                            boxShadow: '0 0 5px 10px #fff',
+                            borderRadius: '10px',
+                            opacity: '0.75'
+                        }}
+                    >
+                        {`${game.playerTwo.player[0].userName} lost :(`}
+                    </span>
+                </h1>
+            )
+        } else if (playerOneLives <= 0) {
+            return (
+                <h1 
+                    className="light-green-text text-darken-3"
+                    style={{
+                        textShadow: '2px 2px 1px #000',
+                        position: 'absolute',
+                        top: '50%',
+                        left: '50%',
+                        transform: 'translate(-50%, -50%)'
+                    }}
+                >
+                    <span 
+                        style={{
+                            backgroundColor: '#fff',
+                            boxShadow: '0 0 5px 10px #fff',
+                            borderRadius: '10px',
+                            opacity: '0.75'
+                        }}
+                    >
+                        {`${game.playerTwo.player[0].userName} won!!`}
+                    </span>
+                </h1>
+            )
+        } else { return }
+    }
     render () {
-        var props = this.props.tree
         return (
             <div 
                 className="container" 
                 style={{ width: '100vw' }}
             >
                 <div className="row">
-                    <NodeRow0 
-                        image={nodeProps[0].image}
-                        text={nodeProps[0].text}
-                        key={nodeProps[0].key}
-                        classState={props ? props.playerTwo[1].hasVisited : false}
-                    />
+                    {this.renderRow0()}
                 </div>
                 <div className="row"  style={{ marginBottom: '40px' }}>
-                    <NodeRow1 
-                        image={nodeProps[2].image}
-                        text={nodeProps[2].text}
-                        key={nodeProps[2].key}
-                        classState={props ? props.playerTwo[3].hasVisited : false}
-                    />
-                    <NodeRow1 
-                        image={nodeProps[1].image}
-                        text={nodeProps[1].text}
-                        key={nodeProps[1].key}
-                        classState={props ? props.playerTwo[2].hasVisited : false}
-                    />
+                    {this.renderRow1()}
                 </div>
                 <div className="row">
                     {this.renderRow2()}
@@ -104,21 +165,21 @@ class TreePlayerTwo extends Component {
                 <div className="row">
                     {this.renderRow4()}
                 </div>
+                {this.renderGameOver()}
             </div>
         )
     }
 }
 
 // -------------------------------------------------
-function mapStateToProps ({ nodes, tree }) {
+function mapStateToProps ({ tree }) {
     return {
-        nodes,
         tree: tree[0]
     }
 }
 // -------------------------------------------------
 export default connect(
     mapStateToProps,
-    { fetchNodes, fetchTree }
+    { fetchTree }
 )(TreePlayerTwo)
 // -------------------------------------------------

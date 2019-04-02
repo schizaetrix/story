@@ -52,7 +52,7 @@ function nodeTemplate (node) {
                         src="${node.image}" 
                         alt="${node.title}"
                         title="${node.title}"
-                        style="display:block; margin-right:auto; margin-left:auto"
+                        style="display:block; margin-right:auto; margin-left:auto; border-radius:10%; padding:1px; border:2px solid #558b2f"
                         width="300"
                         height="180"
                     />

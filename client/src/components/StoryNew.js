@@ -7,7 +7,7 @@ import M from 'materialize-css'
 // -------------------------------------------------
 import history from '../history'
 import validateEmails from '../utilities/validateEmails'
-import { storyStart } from '../actions'
+import { storyStart, gameOver } from '../actions'
 import Modal from './Modal'
 import EmailField from './EmailField'
 // -------------------------------------------------
@@ -15,10 +15,7 @@ import EmailField from './EmailField'
 class StoryNew extends Component {
     componentDidMount () {
         const storyNewModal = document.getElementById('story-new')
-        let options = {
-            onCloseEnd: () => history.push('/storytree')
-        }
-        const instance = M.Modal.init(storyNewModal, options);
+        const instance = M.Modal.init(storyNewModal, {});
         instance.open()
     }
     renderContent () {
@@ -33,6 +30,8 @@ class StoryNew extends Component {
     }
     renderActions () {
         const email = this.props.formValues
+        const tree = this.props.tree
+        let treeId = tree && tree.treeSession ? tree.treeSession : undefined
         return (
             <div>
                 <Link 
@@ -48,7 +47,8 @@ class StoryNew extends Component {
                 <Link 
                     to="/storynew/confirmation"
                     onClick={() => this.props.handleSubmit(
-                        this.props.storyStart(email)
+                        this.props.storyStart(email),
+                        this.props.gameOver(treeId)
                     )}
                     className="
                         modal-close btn 
@@ -98,12 +98,13 @@ const formWrapped = reduxForm({
 // -------------------------------------------------
 function mapStateToProps (state) {
     return {
-        formValues: state.form.storyForm
+        formValues: state.form.storyForm,
+        tree: state.tree[0]
     }
 }
 // -------------------------------------------------
 export default connect(
     mapStateToProps,
-    { storyStart }
+    { storyStart, gameOver }
 )(formWrapped)
 // -------------------------------------------------

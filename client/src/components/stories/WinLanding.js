@@ -27,7 +27,13 @@ class WinLanding extends Component {
                     <img 
                         src={story.image} 
                         alt={story.title}
-                        style={{ width: '80%', maxWidth: '500px'  }}
+                        style={{
+                            width: '80%',
+                            maxWidth: '500px',
+                            borderRadius: '10%',
+                            padding: '1px',
+                            border: '2px solid #558b2f'
+                        }}
                     />
                     <h4>+20 Points</h4>
                     <h5>

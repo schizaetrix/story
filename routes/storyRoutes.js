@@ -60,6 +60,21 @@ module.exports = (app) => {
             res.send(tree)
         }
     )
+    
+    app.delete(
+        '/api/tree/:treeId/delete',
+        async (req, res) => {
+            const path = new Path('/api/tree/:treeId/delete')
+            const match = path.test(req.originalUrl)
+            if (match) {
+                await Tree.deleteOne({
+                    treeSession: match.treeId
+                }, (err) => {
+                    if (err) return handleError(err)
+                })
+            }
+        }
+    )
 
     app.post(
         '/api/nodes/first',

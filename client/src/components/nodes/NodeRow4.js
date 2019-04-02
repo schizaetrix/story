@@ -22,7 +22,7 @@ class NodeRow3 extends Component {
                         width: '100%', 
                         borderRadius: '10%',
                         padding: '1px',
-                        border: '2px solid green'
+                        border: '2px solid #558b2f'
                     }}
                 />
             </div>

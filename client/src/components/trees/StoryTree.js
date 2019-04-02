@@ -21,6 +21,10 @@ class StoryTree extends Component {
         const parallax = document.querySelectorAll('.parallax')
         M.Parallax.init(parallax, {})
         this.props.fetchTree()
+        this.interval = setInterval(this.props.fetchTree, 10000)
+    }
+    componentWillUnmount () {
+        clearInterval(this.interval)
     }
     scrollspyPlayer1 () {
         switch (this.props.tree) {
