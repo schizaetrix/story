@@ -36,9 +36,10 @@ class WinLanding extends Component {
                         }}
                     />
                     <h4>+20 Points</h4>
-                    <h5>
-                        {story.body}
-                    </h5>
+                    <h6>{story.lead}</h6>
+                    <p className="light-green-text text-darken-3">
+                        You survived the Matrix! You can go back and try more paths for more points. But watch your lives!
+                    </p>
                 </div>
             </div>
         )

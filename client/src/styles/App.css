@@ -63,9 +63,11 @@ a {
     align-items: center;
     justify-content: center;
     overflow: visible;
+}
+.hover-class {
     transition: transform 0.2s;
 }
-.node:hover {
+.hover-class:hover {
     transition: transform 0.2s;
     transform: scale(1.05)
 }
@@ -115,4 +117,7 @@ input[type=email]:not(.browser-default):focus {
 .new-story-tree:hover {
     transition: transform 0.2s;
     transform: scale(1.02)
+}
+.no-hover{
+    pointer-events: none;
 }

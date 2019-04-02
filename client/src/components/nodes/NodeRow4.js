@@ -13,7 +13,7 @@ class NodeRow3 extends Component {
                 }}
             >
                 <img 
-                    className={`z-depth-3 scale-transition 
+                    className={`z-depth-3 hover-class scale-transition 
                         ${ this.props.classState ? 'scale-in' : 'scale-out' }
                     `}
                     src={this.props.image}

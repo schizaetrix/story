@@ -1,13 +1,15 @@
 // -------------------------------------------------
 import React, { Component } from 'react'
 // -------------------------------------------------
+// import Tree3 from '../../assets/images/Tree3.svg'
+// -------------------------------------------------
 
 class NodeRow1 extends Component {
     render () {
         return (
             <div className="col s6 node-col node">
                 <img 
-                    className={`z-depth-3 scale-transition 
+                    className={`z-depth-3 hover-class scale-transition 
                         ${ this.props.classState ? 'scale-in' : 'scale-out' }
                     `}
                     src={this.props.image}

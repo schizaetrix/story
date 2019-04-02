@@ -36,9 +36,10 @@ class DeathLanding extends Component {
                         }}
                     />
                     <h4>-5 Points, -1 Life</h4>
-                    <h5>
-                        {story.body}
-                    </h5>
+                    <h6>{story.lead}</h6>
+                    <p className="light-green-text text-darken-3">
+                        You have died! Go back to a previous email path and try again! Be more careful next time. :P
+                    </p>
                 </div>
             </div>
         )

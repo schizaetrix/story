@@ -148,7 +148,11 @@ class TreePlayerTwo extends Component {
         return (
             <div 
                 className="container" 
-                style={{ width: '100vw' }}
+                style={{ 
+                    width: '100vw',
+                    position: 'relative',
+                    textAlign: 'center'
+                }}
             >
                 <div className="row">
                     {this.renderRow0()}

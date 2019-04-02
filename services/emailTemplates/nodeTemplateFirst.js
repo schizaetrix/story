@@ -16,25 +16,25 @@ function nodeTemplate (node) {
                         gchilds = node.gchilds1
                     }
                     const html = 
-                        `<div>
+                        `<div class="col">
                             <a href="${keys.redirectDomain}/api/nodes/${node.treeSession}/${node.id}/${node.key}/${story.key}/${gchilds[0]}/${gchilds[1]}/path">
-                                ${story.title}
+                                ${story.subject}
                             </a>
                         </div>`
                     linksHTML += html
                 } else if (story.key == child && story.isDeath === true) {
                     const html = 
-                        `<div>
+                        `<div class="col">
                             <a href="${keys.redirectDomain}/api/nodes/${node.treeSession}/${node.id}/${node.key}/${story.key}/death">
-                                ${story.title}
+                                ${story.subject}
                             </a>
                         </div>`
                     linksHTML += html
                 } else if (story.key == child && story.isWin === true) {
                     const html = 
-                        `<div>
+                        `<div class="col">
                             <a href="${keys.redirectDomain}/api/nodes/${node.treeSession}/${node.id}/${node.key}/${story.key}/win">
-                                ${story.title}
+                                ${story.subject}
                             </a>
                         </div>`
                     linksHTML += html
@@ -47,7 +47,7 @@ function nodeTemplate (node) {
         `<html>
             <body>
                 <div style="text-align: center;">
-                    <h3>Continuing with our story...</h3>
+                    <h3>${node.title}</h3>
                     <img 
                         src="${node.image}" 
                         alt="${node.title}"
@@ -57,7 +57,9 @@ function nodeTemplate (node) {
                         height="180"
                     />
                     <p>${node.body}</p>
-                    ${links(node)}
+                    <div class="row">
+                        ${links(node)}
+                    </div>
                 </div>
             </body>
         </html>

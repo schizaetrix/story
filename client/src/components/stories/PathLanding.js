@@ -39,7 +39,10 @@ class PathLanding extends Component {
                             }}
                         />
                         <h4>+10 Points</h4>
-                        <h5>{story.body}</h5>
+                        <h6>{story.lead}</h6>
+                        <p className="light-green-text text-darken-3">
+                            Check your email again to find out what happens next...
+                        </p>
                     </div>
                 )
         }
